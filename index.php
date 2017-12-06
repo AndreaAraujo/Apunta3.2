@@ -1,1 +1,1 @@
-<?php header('Location: mvcblog-front/index.html'); ?>
+<?php header('Location: frontend/index.html'); ?>
