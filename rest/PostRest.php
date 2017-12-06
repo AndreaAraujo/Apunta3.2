@@ -45,7 +45,7 @@ class PostRest extends BaseRest {
 				"IdNota" => $post->getIdNota(),
 				"nombre" => $post->getNombre(),
 				"contenido" => $post->getContenido(),
-				"Usuario_idUsuario" => $post->getUsuario_idUsuario()->getLogin()
+				"autor" => $post->getAutor()->getLogin()
 			));
 		}
 
@@ -59,10 +59,10 @@ class PostRest extends BaseRest {
 		$post = new Post();
 
 		if (isset($data->nombre) && isset($data->contenido)) {
-			$post->setNombre($data->nombre;
-			$post->setContenido($data->content);
+			$post->setNombre($data->nombre);
+			$post->setContenido($data->contenido);
 
-			$post->setUsuario_idUsuario($currentUser);
+			$post->setAutor($currentUser);
 		}
 
 		try {
@@ -78,7 +78,7 @@ class PostRest extends BaseRest {
 			header('Content-Type: application/json');
 			echo(json_encode(array(
 				"IdNota"=>$IdNota,
-				"nombre"=>$post->getTitle(),
+				"nombre"=>$post->getNombre(),
 				"contenido" => $post->getContenido()
 			)));
 
@@ -101,7 +101,7 @@ class PostRest extends BaseRest {
 			"IdNota" => $post->getIdNota(),
 			"nombre" => $post->getNombre(),
 			"contenido" => $post->getContenido(),
-			"Usuario_idUsuario" => $post->getUsuario_idUsuario()->getLogin()
+			"autor" => $post->getAutor()->getLogin()
 
 		);
 
@@ -127,8 +127,8 @@ class PostRest extends BaseRest {
 			header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
 			echo("you are not the author of this post");
 		}
-		$post->setTitle($data->nombre);
-		$post->setContent($data->contenido);
+		$post->setNombre($data->nombre);
+		$post->setContenido($data->contenido);
 
 		try {
 			// validate Post object
@@ -142,17 +142,17 @@ class PostRest extends BaseRest {
 		}
 	}
 
-	public function deletePost($postId) {
+	public function deletePost($IdNota) {
 		$currentUser = parent::authenticateUser();
-		$post = $this->postMapper->findById($postId);
+		$post = $this->postMapper->findById($IdNota);
 
 		if ($post == NULL) {
 			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
-			echo("Post with id ".$postId." not found");
+			echo("Post with id ".$IdNota." not found");
 			return;
 		}
 		// Check if the Post author is the currentUser (in Session)
-		if ($post->getAuthor() != $currentUser) {
+		if ($post->getAutor() != $currentUser) {
 			header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
 			echo("you are not the author of this post");
 			return;

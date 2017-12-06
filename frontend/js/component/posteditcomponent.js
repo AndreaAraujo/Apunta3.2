@@ -27,7 +27,6 @@ class PostEditComponent extends Fronty.ModelComponent {
             alert('an error has occurred during request: ' + statusText + '.' + xhr.responseText);
           }
         });
-
     });
   }
 

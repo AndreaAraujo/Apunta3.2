@@ -22,7 +22,7 @@ class PostsComponent extends Fronty.ModelComponent {
       this.postsModel.setPosts(
         // create a Fronty.Model for each item retrieved from the backend
         data.map(
-          (item) => new PostModel(item.IdNota, item.nombre, item.contenido, item.Usuario_idUsuario)
+          (item) => new PostModel(item.IdNota, item.nombre, item.contenido, item.autor)
       ));
     });
   }
@@ -59,7 +59,7 @@ class PostRowComponent extends Fronty.ModelComponent {
 
     this.addEventListener('click', '.edit-button', (event) => {
       var IdNota = event.target.getAttribute('item');
-      this.router.goToPage('edit-post?id=' + IdNota);
+      this.router.goToPage('edit-post?IdNota=' + IdNota);
     });
   }
 

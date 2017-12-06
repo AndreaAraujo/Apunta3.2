@@ -16,15 +16,15 @@ class Post {
 	private $contenido;
 
 
-	private $Usuario_idUsuario;
+	private $autor;
 
 
 
-	public function __construct($IdNota=NULL, $nombre=NULL, $contenido=NULL, User $Usuario_idUsuario=NULL) {
+	public function __construct($IdNota=NULL, $nombre=NULL, $contenido=NULL, User $autor=NULL) {
 		$this->IdNota = $IdNota;
 		$this->nombre = $nombre;
 		$this->contenido = $contenido;
-		$this->Usuario_idUsuario = $Usuario_idUsuario;
+		$this->autor = $autor;
 
 
 	}
@@ -55,13 +55,13 @@ class Post {
 
 
 
-	public function getUsuario_idUsuario() {
-		return $this->Usuario_idUsuario;
+	public function getAutor() {
+		return $this->autor;
 	}
 
 
-	public function setUsuario_idUsuario(User $Usuario_idUsuario) {
-		$this->Usuario_idUsuario = $Usuario_idUsuario;
+	public function setAutor(User $autor) {
+		$this->autor = $autor;
 	}
 
 
@@ -75,9 +75,7 @@ class Post {
 		if (strlen(trim($this->contenido)) == 0 ) {
 			$errors["contenido"] = "contenido is mandatory";
 		}
-		if ($this->Usuario_idUsuario == NULL ) {
-			$errors["Usuario_idUsuario"] = "Usuario_idUsuario is mandatory";
-		}
+
 
 		if (sizeof($errors) > 0){
 			throw new ValidationException($errors, "post is not valid");

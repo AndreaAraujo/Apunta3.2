@@ -1,6 +1,6 @@
 class PostModel extends Fronty.Model {
 
-  constructor(IdNota, nombre, contenido, Usuario_idUsuario) {
+  constructor(IdNota, nombre, contenido, autor) {
     super('PostModel'); //call super
 
     if (IdNota) {
@@ -15,8 +15,8 @@ class PostModel extends Fronty.Model {
       this.contenido = contenido;
     }
 
-    if (Usuario_idUsuario) {
-      this.Usuario_idUsuario = Usuario_idUsuario;
+    if (autor) {
+      this.autor = autor;
     }
   }
 
@@ -26,9 +26,9 @@ class PostModel extends Fronty.Model {
     });
   }
 
-  setUsuario_idUsuario(Usuario_idUsuario) {
+  setAutor(autor) {
     this.set((self) => {
-      self.Usuario_idUsuario = Usuario_idUsuario;
+      self.Autor = autor;
     });
   }
 }

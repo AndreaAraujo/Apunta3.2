@@ -13,7 +13,6 @@ require_once(__DIR__."/../core/ValidationException.php");
 class User {
 
 
-  private $IdUsuario
 	private $login;
 	private $password;
 	private $email;
@@ -24,8 +23,8 @@ class User {
 	* @param string $username The name of the user
 	* @param string $passwd The password of the user
 	*/
-	public function __construct($IdUsuario=NULL,$login=NULL, $password=NULL, $email = NULL) {
-		$this->IdUsuario = $IdUsuario;
+	public function __construct($login=NULL, $password=NULL, $email = NULL) {
+		
 		$this->login = $login;
 		$this->password = $password;
     $this->email = $email;

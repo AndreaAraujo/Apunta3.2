@@ -34,13 +34,13 @@ class PostMapper {
 	* @return mixed Array of Post instances (without comments)
 	*/
 	public function findAll() {
-		$stmt = $this->db->query("SELECT * FROM nota, usuario WHERE usuario.IdUsuario = nota.Usuario_idUsuario");
+		$stmt = $this->db->query("SELECT * FROM nota, usuario WHERE usuario.login = nota.autor");
 		$posts_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		$posts = array();
 
 		foreach ($posts_db as $post) {
-			$author = new User($post["IdUsuario"]);
+			$author = new User($post["login"]);
 			array_push($posts, new Post($post["IdNota"], $post["nombre"], $post["contenido"], $author));
 		}
 
@@ -66,7 +66,7 @@ class PostMapper {
 			$post["IdNota"],
 			$post["nombre"],
 			$post["contenido"],
-			new User($post["Usuario_idUsuario"]));
+			new User($post["login"]));
 		} else {
 			return NULL;
 		}
@@ -127,8 +127,8 @@ class PostMapper {
 		* @return int The mew post id
 		*/
 		public function save(Post $post) {
-			$stmt = $this->db->prepare("INSERT INTO nota(nombre, contenido, Usuario_idUsuario) values (?,?,?)");
-			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getUsuario_idUsuario());
+			$stmt = $this->db->prepare("INSERT INTO nota(nombre, contenido, autor) values (?,?,?)");
+			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getAutor());
 			return $this->db->lastInsertId();
 		}
 
