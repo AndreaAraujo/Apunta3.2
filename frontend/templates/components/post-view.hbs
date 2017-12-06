@@ -1,0 +1,18 @@
+<div>
+  <h2>{{selectedPost.nombre}}</h2> 
+  <div>{{selectedPost.contenido}}</div>
+  <div id="comments">
+    <h3>{{i18n 'Comments'}}</h3>
+    {{#each selectedPost.comments}}
+      <p>{{author}} commented</p>
+      <p>
+        {{content}}
+      </p>
+      <hr>
+    {{/each}}
+  </div>
+  {{#if isLogged}}
+    <h2>{{i18n 'lalalallalallalalalalalalal'}}</h2>
+
+  {{/if}}
+</div>
