@@ -11,7 +11,7 @@ class PostsService {
     return $.get(AppConfig.backendServer+'/rest/post/' + IdNota);
   }
 
-  deletePost(id) {
+  deletePost(IdNota) {
     return $.ajax({
       url: AppConfig.backendServer+'/rest/post/' + IdNota,
       method: 'DELETE'

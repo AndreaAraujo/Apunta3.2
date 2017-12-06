@@ -9,8 +9,8 @@ class PostEditComponent extends Fronty.ModelComponent {
     this.postsService = new PostsService();
 
     this.addEventListener('click', '#savebutton', () => {
-      this.postsModel.selectedPost.title = $('#title').val();
-      this.postsModel.selectedPost.content = $('#content').val();
+      this.postsModel.selectedPost.nombre = $('#nombre').val();
+      this.postsModel.selectedPost.contenido = $('#contenido').val();
       this.postsService.savePost(this.postsModel.selectedPost)
         .then(() => {
           this.postsModel.set((model) => {
@@ -32,7 +32,7 @@ class PostEditComponent extends Fronty.ModelComponent {
   }
 
   onStart() {
-    var selectedId = this.router.getRouteQueryParam('id');
+    var selectedId = this.router.getRouteQueryParam('IdNota');
     if (selectedId != null) {
       this.postsService.findPost(selectedId)
         .then((post) => {
