@@ -10,7 +10,7 @@ class PostViewComponent extends Fronty.ModelComponent {
     this.postsService = new PostsService();
 
     this.addEventListener('click', '#savecommentbutton', () => {
-      var selectedId = this.router.getRouteQueryParam('id');
+      var selectedId = this.router.getRouteQueryParam('IdNota');
       this.postsService.createComment(selectedId, {
           content: $('#commentcontent').val()
         })
@@ -31,7 +31,7 @@ class PostViewComponent extends Fronty.ModelComponent {
   }
 
   onStart() {
-    var selectedId = this.router.getRouteQueryParam('id');
+    var selectedId = this.router.getRouteQueryParam('IdNota');
     this.loadPost(selectedId);
   }
 

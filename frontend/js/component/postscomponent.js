@@ -46,8 +46,8 @@ class PostRowComponent extends Fronty.ModelComponent {
 
     this.addEventListener('click', '.remove-button', (event) => {
       if (confirm(I18n.translate('Are you sure?'))) {
-        var postId = event.target.getAttribute('item');
-        this.postsComponent.postsService.deletePost(postId)
+        var IdNota = event.target.getAttribute('item');
+        this.postsComponent.postsService.deletePost(IdNota)
           .fail(() => {
             alert('post cannot be deleted')
           })

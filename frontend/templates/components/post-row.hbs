@@ -1,12 +1,12 @@
-<tr key="{{id}}">
-  <td><a href="#view-post?id={{id}}">{{title}}</a></td>
-  <td>{{author_id}} ({{user.currentUser}})</td>
+<tr key="{{IdNota}}">
+  <td><a href="#view-post?id={{IdNota}}">{{nombre}}</a></td>
+  <td>{{Usuario_idUsuario}} ({{user.currentUser}})</td>
   <td>
 
-    {{#if_eq user.currentUser author_id}}
+    {{#if_eq user.currentUser Usuario_idUsuario}}
 
-      <button class="remove-button" item="{{id}}">{{i18n 'remove'}}</button>
-      <button class="edit-button" item="{{id}}">{{i18n 'edit'}}</button>
+      <button class="remove-button" item="{{IdNota}}">{{i18n 'remove'}}</button>
+      <button class="edit-button" item="{{IdNota}}">{{i18n 'edit'}}</button>
     {{/if_eq}}
   </td>
 </tr>

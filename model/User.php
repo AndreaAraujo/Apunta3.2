@@ -28,6 +28,7 @@ class User {
 		$this->IdUsuario = $IdUsuario;
 		$this->login = $login;
 		$this->password = $password;
+    $this->email = $email;
 	}
 
 	/**
@@ -39,33 +40,28 @@ class User {
 		return $this->login;
 	}
 
-	/**
-	* Sets the username of this user
-	*
-	* @param string $username The username of this user
-	* @return void
-	*/
 	public function setLogin($login) {
 		$this->login = $login;
 	}
 
-	/**
-	* Gets the password of this user
-	*
-	* @return string The password of this user
-	*/
+
 	public function getPassword() {
 		return $this->password;
 	}
-	/**
-	* Sets the password of this user
-	*
-	* @param string $passwd The password of this user
-	* @return void
-	*/
+
 	public function setPassword($password) {
 		$this->password = $password;
 	}
+
+  public function getEmail() {
+		return $this->email;
+	}
+
+	public function setEmail($email) {
+		$this->email = $email;
+	}
+
+
 
 	/**
 	* Checks if the current user instance is valid
@@ -83,7 +79,7 @@ class User {
 
 		}
 		if (strlen($this->password) < 5) {
-			$errors["passwd"] = "Password must be at least 5 characters length";
+			$errors["password"] = "Password must be at least 5 characters length";
 		}
 		if (strlen($this->email) < 5) {
 			$errors["email"] = "email must be at least 5 characters length";

@@ -3,8 +3,8 @@ class PostModel extends Fronty.Model {
   constructor(IdNota, nombre, contenido, Usuario_idUsuario) {
     super('PostModel'); //call super
 
-    if (idNota) {
-      this.IdNota = id;
+    if (IdNota) {
+      this.IdNota = IdNota;
     }
 
     if (nombre) {
