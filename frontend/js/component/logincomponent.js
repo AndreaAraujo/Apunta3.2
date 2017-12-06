@@ -1,6 +1,6 @@
 class LoginComponent extends Fronty.ModelComponent {
-  constructor(usuarioModel, router) {
-    super(Handlebars.templates.login, usuarioModel);
+  constructor(userModel, router) {
+    super(Handlebars.templates.login, userModel);
     this.usuarioModel = UserModel;
     this.usuarioService = new UserService();
     this.router = router;
@@ -16,34 +16,34 @@ class LoginComponent extends Fronty.ModelComponent {
         });
     });
 
-    this.addEventListener('click', '#btnNuevoRegistro', () => {
-      this.usuarioModel.set(() => {
-        this.usuarioModel.registerMode = true;
-      });
-    });
+    this.addEventListener('click', '#registerlink', () => {
+       this.usuarioModel.set(() => {
+         this.usuarioModel.registerMode = true;
+       });
+     });
 
-    this.addEventListener('click', '#btnRegistro', () => {
-      this.usuarioService.register({
-          login: $('#registroNombre').val(),
-          password: $('#registroPassword').val(),
-          email: $('#registroEmail').val()
-        })
-        .then(() => {
-          alert(I18n.translate('Usuario registrado! logeate'));
-          this.usuarioModel.set((model) => {
-            model.registerErrors = {};
-            model.registerMode = false;
-          });
-        })
-        .fail((xhr, errorThrown, statusText) => {
-          if (xhr.status == 400) {
-            this.usuarioModel.set(() => {
-              this.usuarioModel.registerErrors = xhr.responseJSON;
-            });
-          } else {
-            alert('un error ha ocurrido durante la solicitud: ' + statusText + '.' + xhr.responseText);
-          }
-        });
-    });
-  }
-}
+     this.addEventListener('click', '#registerbutton', () => {
+       this.usuarioService.register({
+           login: $('#registroNombre').val(),
+           email: $('#registroEmail').val(),
+           password: $('#registroPassword').val()
+         })
+         .then(() => {
+           alert(I18n.translate('User registered! Please login'));
+           this.usuarioService.set((model) => {
+             model.registerErrors = {};
+             model.registerMode = false;
+           });
+         })
+         .fail((xhr, errorThrown, statusText) => {
+           if (xhr.status == 400) {
+             this.usuarioModel.set(() => {
+               this.usuarioModel.registerErrors = xhr.responseJSON;
+             });
+           } else {
+             alert('an error has occurred during request: ' + statusText + '.' + xhr.responseText);
+           }
+         });
+     });
+   }
+ }
