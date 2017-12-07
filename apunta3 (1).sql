@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2017 a las 00:15:57
+-- Tiempo de generación: 07-12-2017 a las 12:53:38
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -38,14 +38,15 @@ CREATE TABLE `nota` (
 --
 
 INSERT INTO `nota` (`IdNota`, `nombre`, `contenido`, `autor`) VALUES
+(1, 'fwsefsdfsd', 'dddddddddddddd', 'andrea'),
 (43, 'Entrenamiento', 'Abdominales: 3 series de 30 repeticiones********* Sentadillas: 5 series de 20 repeticionesliva virgen extra**********   Press banca: 4 series de 25 repeticiones', 'pepep'),
 (44, 'CumpleaÃ±os', 'FÃ¡tima: 23/9  ,  Mario: 01/12  ', 'pepep'),
 (45, 'Ingredientes croquetas para 6 personas', '200g de jamÃ³n serrano ,1 cebolleta , 1 diente de ajo , 100g de harina , 100g de mantequilla (o 100ml de aceite de oliva virgen extra) , 1L de leche , perejil', 'mario'),
 (47, 'Llamadas pendientes', 'Maite de Linasa , Talleres Gumerjo', 'mario'),
 (48, 'Reuniones', 'Jueves 02/11/2017 a las 10:00', 'pepep'),
-(49, 'NataciÃ³n', '400m estilos , 500m x 2 crol', 'andrea'),
 (53, 'Lista de la compra', 'SalmÃ³n , Macarrones , AzÃºcar moreno , AtÃºn ,Calamares', 'andrea'),
-(54, 'nota andrea', 'andrea', 'andrea');
+(54, 'nota andrea', 'andrea', 'andrea'),
+(55, 'dqwerdwe', 'werwerwerrrwerwerwerwerwe', 'andrea');
 
 -- --------------------------------------------------------
 
@@ -75,6 +76,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`login`, `password`, `email`) VALUES
+('aaaaaa', 'aaaaaa', 'aaaaaa@gmsil.com'),
 ('andrea', 'andrea', 'andrea@gmail.com'),
 ('mario', 'mario', 'mario@gmail.com'),
 ('pepep', 'pepep', 'pepep@gmail.com');
@@ -106,6 +108,15 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`login`);
 
 --
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `nota`
+--
+ALTER TABLE `nota`
+  MODIFY `IdNota` bigint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -119,8 +130,8 @@ ALTER TABLE `nota`
 -- Filtros para la tabla `notas_compartidas`
 --
 ALTER TABLE `notas_compartidas`
-  ADD CONSTRAINT `notas_compartidas_ibfk_1` FOREIGN KEY (`idNota`) REFERENCES `nota` (`IdNota`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `notas_compartidas_ibfk_2` FOREIGN KEY (`nomUsu`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `notas_compartidas_ibfk_2` FOREIGN KEY (`nomUsu`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notas_compartidas_ibfk_3` FOREIGN KEY (`idNota`) REFERENCES `nota` (`IdNota`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
