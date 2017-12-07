@@ -123,7 +123,7 @@ class PostRest extends BaseRest {
 		}
 
 		// Check if the Post author is the currentUser (in Session)
-		if ($post->getAuthor() != $currentUser) {
+		if ($post->getAutor() != $currentUser) {
 			header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
 			echo("you are not the author of this post");
 		}

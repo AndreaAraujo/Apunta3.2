@@ -30,7 +30,7 @@ class LoginComponent extends Fronty.ModelComponent {
          })
          .then(() => {
            alert(I18n.translate('User registered! Please login'));
-           this.usuarioService.set((model) => {
+           this.usuarioModel.set((model) => {
              model.registerErrors = {};
              model.registerMode = false;
            });

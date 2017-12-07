@@ -128,7 +128,7 @@ class PostMapper {
 		*/
 		public function save(Post $post) {
 			$stmt = $this->db->prepare("INSERT INTO nota(nombre, contenido, autor) values (?,?,?)");
-			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getAutor()));
+			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getAutor()->getLogin()));
 			return $this->db->lastInsertId();
 		}
 
@@ -143,6 +143,7 @@ class PostMapper {
 			$stmt = $this->db->prepare("UPDATE nota set nombre=?, contenido=? where IdNota=?");
 			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getIdNota()));
 		}
+
 
 		/**
 		* Deletes a Post into the database
