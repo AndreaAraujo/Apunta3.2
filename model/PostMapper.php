@@ -128,7 +128,7 @@ class PostMapper {
 		*/
 		public function save(Post $post) {
 			$stmt = $this->db->prepare("INSERT INTO nota(nombre, contenido, autor) values (?,?,?)");
-			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getAutor());
+			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getAutor()));
 			return $this->db->lastInsertId();
 		}
 

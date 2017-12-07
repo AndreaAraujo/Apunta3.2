@@ -106,7 +106,7 @@ class PostRest extends BaseRest {
 		);
 
 
-		}
+		
 
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
 		header('Content-Type: application/json');
