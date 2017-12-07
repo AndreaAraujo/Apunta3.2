@@ -66,7 +66,7 @@ class PostMapper {
 			$post["IdNota"],
 			$post["nombre"],
 			$post["contenido"],
-			new User($post["login"]));
+			new User($post["autor"]));
 		} else {
 			return NULL;
 		}

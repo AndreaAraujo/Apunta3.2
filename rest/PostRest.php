@@ -91,7 +91,7 @@ class PostRest extends BaseRest {
 
 	public function readPost($IdNota) {
 		// find the Post object in the database
-		$post = $this->postMapper->findByIdWithComments($IdNota);
+		$post = $this->postMapper->findById($IdNota);
 		if ($post == NULL) {
 			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
 			echo("Post with id ".$IdNota." not found");
@@ -106,7 +106,7 @@ class PostRest extends BaseRest {
 		);
 
 
-		
+
 
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
 		header('Content-Type: application/json');

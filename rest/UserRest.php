@@ -54,3 +54,4 @@ $userRest = new UserRest();
 URIDispatcher::getInstance()
 ->map("GET",	"/user/$1", array($userRest,"login"))
 ->map("POST", "/user", array($userRest,"postUser"));
+?>
