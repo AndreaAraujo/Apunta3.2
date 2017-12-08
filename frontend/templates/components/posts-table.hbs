@@ -1,24 +1,23 @@
-<div>
-<h1>{{i18n 'Posts'}}</h1>
-<div id="posts-table">
-  {{#if posts.length}}
-    <table border="1">
-      <thead>
-      <tr>
-        <th>{{i18n 'Nombre'}}</th>
-        <th>{{i18n 'Usuario'}}</th>
-        <th>{{i18n 'Actions'}}</th>
-      </tr>
-      </thead>
-      <tbody>
-      {{#each posts}}
-        <tr fronty-component="PostRowComponent" key="{{IdNota}}" model="posts[{{@index}}]" id="item-{{IdNota}}"></tr>
-      {{/each}}
-    </tbody>
-    </table>
-  {{/if}}
-</div>
+
+  <div class="container">
 {{#if user.isLogged}}
-  <a href='#add-post'>{{i18n 'Add post'}}</a>
-{{/if}}
+  <h1>{{i18n 'My notes'}}</h1>
+
+
+    <a href='#add-post'>  <button type="button" class="btn btn-default btn-lg" ><span class="glyphicon glyphicon-plus" id="btnCrearNota"></span>{{i18n 'Add note'}}</button></a>
+   <a href='#view-notasCompartidas'>  <button type="button" class="btn btn-default btn-lg" >{{i18n 'Shared notes with me'}}</button></a>
+
+  {{#if posts.length}}
+
+  <div class="row">
+
+      <div>
+      {{#each posts}}
+        <p fronty-component="PostRowComponent" key="{{IdNota}}" model="posts[{{@index}}]" id="item-{{IdNota}}"></p>
+      {{/each}}
+      </div>
+
+  </div>
+  {{/if}}
+    {{/if}}
 </div>

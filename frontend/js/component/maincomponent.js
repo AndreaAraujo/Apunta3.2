@@ -6,11 +6,20 @@ class MainComponent extends Fronty.RouterComponent {
     // we can instantiate models at any place
     var userModel = new UserModel();
     var postsModel = new PostsModel();
+    var notasCompartidasModel = new NotasCompartidasModel();
 
     super.setRouterConfig({
       posts: {
         component: new PostsComponent(postsModel, userModel, this),
         title: 'Posts'
+      },
+      notasCompartidas: {
+        component: new NotasCompartidasComponent(notasCompartidasModel, postsModel, userModel, this),
+        title: 'NotasCompartidas'
+      },
+      'view-notasCompartidas': {
+        component: new NotasCompartidasViewComponent(notasCompartidasModel, userModel, this),
+        title: 'NotaCompartida'
       },
       'view-post': {
         component: new PostViewComponent(postsModel, userModel, this),

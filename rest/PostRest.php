@@ -6,6 +6,9 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/Post.php");
 require_once(__DIR__."/../model/PostMapper.php");
 
+require_once(__DIR__."/../model/NotasCompartidas.php");
+require_once(__DIR__."/../model/NotasCompartidasMapper.php");
+
 require_once(__DIR__."/../model/Comment.php");
 require_once(__DIR__."/../model/CommentMapper.php");
 
@@ -25,12 +28,16 @@ class PostRest extends BaseRest {
 	private $postMapper;
 	private $commentMapper;
 
+
 	public function __construct() {
 		parent::__construct();
 
 		$this->postMapper = new PostMapper();
-		$this->commentMapper = new CommentMapper();
+		//$this->commentMapper = new CommentMapper();
+
 	}
+
+
 
 	public function getPosts() {
 		$posts = $this->postMapper->findAll();
@@ -104,8 +111,6 @@ class PostRest extends BaseRest {
 			"autor" => $post->getAutor()->getLogin()
 
 		);
-
-
 
 
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');

@@ -1,0 +1,18 @@
+<div class="container">
+{{#if user.isLogged}}
+  <h1>{{i18n 'My shared notes'}}</h1>
+
+
+  {{#if posts.length}}
+
+  <div class="row">
+      <div>
+      {{#each notasCompartidas}}
+        <p fronty-component="NotasCompartidasRowComponent" key="{{idNota}}" model="posts[{{@index}}]" id="item-{{idNota}}"></p>
+      {{/each}}
+      </div>
+  </div>
+
+  {{/if}}
+    {{/if}}
+</div>

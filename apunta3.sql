@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2017 a las 12:53:38
+-- Tiempo de generación: 08-12-2017 a las 20:37:46
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `nota` (
   `IdNota` bigint(5) NOT NULL,
-  `nombre` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8 NOT NULL,
   `contenido` varchar(300) CHARACTER SET utf8 NOT NULL,
   `autor` varchar(20) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -38,15 +38,17 @@ CREATE TABLE `nota` (
 --
 
 INSERT INTO `nota` (`IdNota`, `nombre`, `contenido`, `autor`) VALUES
-(1, 'fwsefsdfsd', 'dddddddddddddd', 'andrea'),
+(1, 'fwsefsdfsd', '12345697/89548', 'andrea'),
 (43, 'Entrenamiento', 'Abdominales: 3 series de 30 repeticiones********* Sentadillas: 5 series de 20 repeticionesliva virgen extra**********   Press banca: 4 series de 25 repeticiones', 'pepep'),
-(44, 'CumpleaÃ±os', 'FÃ¡tima: 23/9  ,  Mario: 01/12  ', 'pepep'),
-(45, 'Ingredientes croquetas para 6 personas', '200g de jamÃ³n serrano ,1 cebolleta , 1 diente de ajo , 100g de harina , 100g de mantequilla (o 100ml de aceite de oliva virgen extra) , 1L de leche , perejil', 'mario'),
+(44, 'Cumpleaños', 'Fátima: 23/9  ,  Mario: 01/12  ', 'pepep'),
+(45, 'Ingredientes croquetas para 6 personas', '200g de jamón serrano ,1 cebolleta , 1 diente de ajo , 100g de harina , 100g de mantequilla (o 100ml de aceite de oliva virgen extra) , 1L de leche , perejil', 'mario'),
 (47, 'Llamadas pendientes', 'Maite de Linasa , Talleres Gumerjo', 'mario'),
 (48, 'Reuniones', 'Jueves 02/11/2017 a las 10:00', 'pepep'),
-(53, 'Lista de la compra', 'SalmÃ³n , Macarrones , AzÃºcar moreno , AtÃºn ,Calamares', 'andrea'),
+(53, 'Lista de la compra', 'Salmón , Macarrones , Azúcar moreno , Atún ,Calamares', 'andrea'),
 (54, 'nota andrea', 'andrea', 'andrea'),
-(55, 'dqwerdwe', 'werwerwerrrwerwerwerwerwe', 'andrea');
+(57, 'aaaaaaa', 'ásnde , aóas', 'andrea'),
+(58, 'wdedwed', 'dwedwedw', 'andrea'),
+(59, 'eeeeee eeeeeeee eeeeeee', 'eeee', 'andrea');
 
 -- --------------------------------------------------------
 
@@ -58,6 +60,13 @@ CREATE TABLE `notas_compartidas` (
   `nomUsu` varchar(20) CHARACTER SET utf8 NOT NULL,
   `idNota` bigint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `notas_compartidas`
+--
+
+INSERT INTO `notas_compartidas` (`nomUsu`, `idNota`) VALUES
+('andrea', 44);
 
 -- --------------------------------------------------------
 
@@ -115,7 +124,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `nota`
 --
 ALTER TABLE `nota`
-  MODIFY `IdNota` bigint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `IdNota` bigint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 --
 -- Restricciones para tablas volcadas
 --

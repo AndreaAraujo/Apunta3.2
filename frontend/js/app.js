@@ -38,7 +38,14 @@ Promise.all([
     loadTextFile('templates/components/post-view.hbs').then((source) =>
       Handlebars.templates.postview = Handlebars.compile(source)),
     loadTextFile('templates/components/post-row.hbs').then((source) =>
-      Handlebars.templates.postrow = Handlebars.compile(source))
+      Handlebars.templates.postrow = Handlebars.compile(source)),
+
+      loadTextFile('templates/components/notasCompartidas-table.hbs').then((source) =>
+        Handlebars.templates.notaCompartidastable = Handlebars.compile(source)),
+      loadTextFile('templates/components/notasCompartidas-view.hbs').then((source) =>
+        Handlebars.templates.notaCompartidasview = Handlebars.compile(source)),
+      loadTextFile('templates/components/notasCompartidas-row.hbs').then((source) =>
+        Handlebars.templates.notaCompartidasrow = Handlebars.compile(source))
   ])
   .then(() => {
     $(() => {

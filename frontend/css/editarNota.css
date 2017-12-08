@@ -74,16 +74,14 @@ h1{
 	margin: 20px 55px;
 }
 
-#labelNombre, #contenidoNota{
+#labelNombre, textarea{
 	font-weight: bold;
 	font-family: "Homer Simpson",cursive;
 	font-size: 30px;
 	margin: 10px;
 }
 
-#textBoxContenido{
-	height:100px;
-}
+
 
 #main-footer {
 	background: url("../img/mesafooter.jpg");
