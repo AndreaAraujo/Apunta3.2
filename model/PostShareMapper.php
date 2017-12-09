@@ -2,7 +2,7 @@
 // file: model/PostMapper.php
 require_once(__DIR__."/../core/PDOConnection.php");
 
-require_once(__DIR__."/../model/Share.php");
+require_once(__DIR__."/../model/PostShare.php");
 
 
 
