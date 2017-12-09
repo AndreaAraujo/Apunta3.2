@@ -30,9 +30,10 @@ class PostRest extends BaseRest {
 		parent::__construct();
 
 		$this->postMapper = new PostMapper();
-		$this->PostShareMapper = new PostShareMapper();
-	}
 
+		$this->PostShareMapper = new PostShareMapper();
+
+	}
 
 	public function getPosts() {
 		$posts = $this->postMapper->findAll();
@@ -198,7 +199,7 @@ URIDispatcher::getInstance()
 ->map("GET",	"/post", array($postRest,"getPosts"))
 ->map("GET",	"/post/$1", array($postRest,"readPost"))
 ->map("POST", "/post", array($postRest,"createPost"))
-->map("POST", "/post/$1/share", array($postRest,"createShare"))
+->map("POST", "/post/$1/postshare", array($postRest,"sharePost"))
 ->map("PUT",	"/post/$1", array($postRest,"updatePost"))
 ->map("DELETE", "/post/$1", array($postRest,"deletePost"));
 ?>
