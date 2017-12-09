@@ -36,11 +36,11 @@ class PostsService {
     });
   }
 
-  createComment(postid, comment) {
+  createShare(postid, share) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post/' + postid + '/comment',
+      url: AppConfig.backendServer+'/rest/post/' + postid + '/share',
       method: 'POST',
-      data: JSON.stringify(comment),
+      data: JSON.stringify(share),
       contentType: 'application/json'
     });
   }

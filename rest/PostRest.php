@@ -6,11 +6,8 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/Post.php");
 require_once(__DIR__."/../model/PostMapper.php");
 
-require_once(__DIR__."/../model/NotasCompartidas.php");
-require_once(__DIR__."/../model/NotasCompartidasMapper.php");
-
-require_once(__DIR__."/../model/Comment.php");
-require_once(__DIR__."/../model/CommentMapper.php");
+require_once(__DIR__."/../model/Share.php");
+require_once(__DIR__."/../model/ShareMapper.php");
 
 require_once(__DIR__."/BaseRest.php");
 
@@ -26,17 +23,15 @@ require_once(__DIR__."/BaseRest.php");
 */
 class PostRest extends BaseRest {
 	private $postMapper;
-	private $commentMapper;
+	private $shareMapper;
 
 
 	public function __construct() {
 		parent::__construct();
 
 		$this->postMapper = new PostMapper();
-		//$this->commentMapper = new CommentMapper();
-
+		$this->ShareMapper = new ShareMapper();
 	}
-
 
 
 	public function getPosts() {
@@ -168,7 +163,7 @@ class PostRest extends BaseRest {
 		header($_SERVER['SERVER_PROTOCOL'].' 204 No Content');
 	}
 
-	public function createComment($postId, $data) {
+	public function createShare($postId, $data) {
 		$currentUser = parent::authenticateUser();
 
 		$post = $this->postMapper->findById($postId);
@@ -177,15 +172,15 @@ class PostRest extends BaseRest {
 			echo("Post with id ".$postId." not found");
 		}
 
-		$comment = new Comment();
-		$comment->setContent($data->content);
-		$comment->setAuthor($currentUser);
-		$comment->setPost($post);
+		$share = new Share();
+		$share->setContent($data->content);
+		$share->setAutor($currentUser);
+		$share->setPost($post);
 
 		try {
-			$comment->checkIsValidForCreate(); // if it fails, ValidationException
+			$share->checkIsValidForCreate(); // if it fails, ValidationException
 
-			$this->commentMapper->save($comment);
+			$this->shareMapper->save($share);
 
 			header($_SERVER['SERVER_PROTOCOL'].' 201 Created');
 
@@ -203,6 +198,7 @@ URIDispatcher::getInstance()
 ->map("GET",	"/post", array($postRest,"getPosts"))
 ->map("GET",	"/post/$1", array($postRest,"readPost"))
 ->map("POST", "/post", array($postRest,"createPost"))
-->map("POST", "/post/$1/comment", array($postRest,"createComment"))
+->map("POST", "/post/$1/share", array($postRest,"createShare"))
 ->map("PUT",	"/post/$1", array($postRest,"updatePost"))
 ->map("DELETE", "/post/$1", array($postRest,"deletePost"));
+?>

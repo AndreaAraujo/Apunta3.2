@@ -2,13 +2,11 @@
 // file: model/PostMapper.php
 require_once(__DIR__."/../core/PDOConnection.php");
 
-require_once(__DIR__."/../model/User.php");
-require_once(__DIR__."/../model/Post.php");
-require_once(__DIR__."/../model/NotasCompartidas.php");
-require_once(__DIR__."/../model/Comment.php");
+require_once(__DIR__."/../model/Share.php");
 
 
-class NotasCompartidasMapper {
+
+class ShareMapper {
 
 	private $db;
 
@@ -18,7 +16,7 @@ class NotasCompartidasMapper {
 
 
   /*Buscar notas compartidas con el ususario logeado*/
-  public function findAllNotasCompartidas($nombreUsuario) {
+  public function findAllShare($nombreUsuario) {
     $stmt = $this->db->prepare("SELECT * FROM notas_compartidas, notas ,usuario WHERE notas_compartidas.nomUsu =? and  notas_compartidas.idNota = notas.IdNota and usuario.login = notas.autor ");
     $stmt->execute(array($nombreUsuario));
     $posts_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -33,7 +31,7 @@ class NotasCompartidasMapper {
     return $posts;
   }
 
-  public function save(NotasCompartidas $post) {
+  public function save(Share $post) {
     $stmt = $this->db->prepare("INSERT INTO notas_compartidas(nomUsu, idNota) values (?,?)");
     $stmt->execute(array($post->getNomUsu(), $post->getIdNota()));
 

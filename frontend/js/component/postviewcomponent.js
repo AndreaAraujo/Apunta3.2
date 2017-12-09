@@ -9,19 +9,19 @@ class PostViewComponent extends Fronty.ModelComponent {
 
     this.postsService = new PostsService();
 
-    this.addEventListener('click', '#savecommentbutton', () => {
+    this.addEventListener('click', '#savesharebutton', () => {
       var selectedId = this.router.getRouteQueryParam('IdNota');
-      this.postsService.createComment(selectedId, {
-          content: $('#commentcontent').val()
+      this.postsService.createShare(selectedId, {
+          content: $('#sharecontent').val()
         })
         .then(() => {
-          $('#commentcontent').val('');
+          $('#sharecontent').val('');
           this.loadPost(selectedId);
         })
         .fail((xhr, errorThrown, statusText) => {
           if (xhr.status == 400) {
             this.postsModel.set(() => {
-              this.postsModel.commentErrors = xhr.responseJSON;
+              this.postsModel.shareErrors = xhr.responseJSON;
             });
           } else {
             alert('an error has occurred during request: ' + statusText + '.' + xhr.responseText);
