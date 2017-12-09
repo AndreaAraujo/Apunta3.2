@@ -70,15 +70,15 @@ class Post {
 	public function checkIsValidForCreate() {
 		$errors = array();
 		if (strlen(trim($this->nombre)) == 0 ) {
-			$errors["nombre"] = "nombre is mandatory";
+			$errors["nombre"] = "Name is mandatory";
 		}
 		if (strlen(trim($this->contenido)) == 0 ) {
-			$errors["contenido"] = "contenido is mandatory";
+			$errors["contenido"] = "Content is mandatory";
 		}
 
 
 		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "post is not valid");
+			throw new ValidationException($errors, "nota is not valid");
 		}
 	}
 

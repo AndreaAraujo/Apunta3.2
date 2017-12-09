@@ -25,14 +25,16 @@
     <center>
         <label for = "logUsuario">{{i18n 'Username' }}:</label>
         <input type="text" name="logUsuario" id="registroNombre">
+        <p>{{#i18n}}{{registerErrors.login}}{{/i18n}}</p>
 
         <label for = "emailUsuario">{{i18n 'Email'}}:</label>
         <input type="text" name="emailUsuario" id="registroEmail">
+        <p>{{#i18n}}{{registerErrors.email}}{{/i18n}}</p>
 
-        {{#i18n}}{{registerErrors.login}}{{/i18n}}<br>
+
         <label for = "conUsuario">{{i18n 'Password' }}:</label>
         <input type="password" name="conUsuario" id="registroPassword" maxlength="8">
-        {{#i18n}}{{registerErrors.password}}{{/i18n}}<br>
+        <p>{{#i18n}}{{registerErrors.password}}{{/i18n}}</p>
 
         <input type="submit" name="enviar" class="btn btn-default"  id="registerbutton" value = "{{i18n 'Create user'}}">
     </center>

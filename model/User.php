@@ -24,7 +24,7 @@ class User {
 	* @param string $passwd The password of the user
 	*/
 	public function __construct($login=NULL, $password=NULL, $email = NULL) {
-		
+
 		$this->login = $login;
 		$this->password = $password;
     $this->email = $email;
@@ -81,7 +81,7 @@ class User {
 			$errors["password"] = "Password must be at least 5 characters length";
 		}
 		if (strlen($this->email) < 5) {
-			$errors["email"] = "email must be at least 5 characters length";
+			$errors["email"] = "Email must be at least 5 characters length";
 		}
 		if (sizeof($errors)>0){
 			throw new ValidationException($errors, "user is not valid");
