@@ -6,8 +6,8 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/Post.php");
 require_once(__DIR__."/../model/PostMapper.php");
 
-require_once(__DIR__."/../model/Share.php");
-require_once(__DIR__."/../model/ShareMapper.php");
+require_once(__DIR__."/../model/PostShare.php");
+require_once(__DIR__."/../model/PostShareMapper.php");
 
 require_once(__DIR__."/BaseRest.php");
 
@@ -30,7 +30,7 @@ class PostRest extends BaseRest {
 		parent::__construct();
 
 		$this->postMapper = new PostMapper();
-		$this->ShareMapper = new ShareMapper();
+		$this->PostShareMapper = new PostShareMapper();
 	}
 
 
