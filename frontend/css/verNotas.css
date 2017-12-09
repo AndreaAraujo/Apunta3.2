@@ -9,11 +9,7 @@
 	height:150px;
 	border: 3px solid #000000;
 }
-img.logo{
-	width:145px;
-	position: relative;
-	left: 10px;
-}
+
 .bloque{
 	float: right;
 }
@@ -47,7 +43,6 @@ body{
 h1{
 	font-family: "MV Boli";
 	font-size: 50px;
-	margin : 120px 20px  20px;
 }
 h2{
   font-weight: bold;

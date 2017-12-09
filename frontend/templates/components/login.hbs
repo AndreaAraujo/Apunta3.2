@@ -3,7 +3,7 @@
   {{i18n 'Your are logged. Logout first'}}
 {{else}}
 
-<div class="container" id="login" >
+<div class="container" id="caja" >
 
 
     <center>
@@ -12,16 +12,16 @@
       <p><label for = "conUsuario">{{i18n 'Password'}}:</label>
       <input type="password" name="conUsuario" id="password"></p>
       <a href="#login" id='registerlink'>{{i18n 'Register Here!'}}</a>
-      <button type="submit" class="btn btn-default" id ="loginbutton">{{i18n 'Login' }}</button>
+      <button type="submit" class="btn btn-default" id="loginbutton">{{i18n 'Login' }}</button>
+    </center>
 
-    <center>
 </div>
 
 
 
   {{#if registerMode}}
 
-  <div class="container" id="login">
+  <div class="container" id="caja">
     <center>
         <label for = "logUsuario">{{i18n 'Username' }}:</label>
         <input type="text" name="logUsuario" id="registroNombre">
@@ -34,9 +34,9 @@
         <input type="password" name="conUsuario" id="registroPassword" maxlength="8">
         {{#i18n}}{{registerErrors.password}}{{/i18n}}<br>
 
-        <input type="submit" name="enviar"  id = "registerbutton" value = "{{i18n 'Create user'}}">
-
+        <input type="submit" name="enviar" class="btn btn-default"  id="registerbutton" value = "{{i18n 'Create user'}}">
     </center>
+
   </div>
 
   {{/if}}
