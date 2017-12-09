@@ -4,7 +4,7 @@
 require_once(__DIR__."/../core/ValidationException.php");
 
 
-class Share {
+class PostShare {
 
   private $nomUsu;
 	private $idNota;

@@ -1,9 +1,9 @@
 <div>
-  <h2>{{selectedPost.nombre}}</h2>
+  <h2>{{selectedPost.nombre}}</h2> {{i18n 'shared by'}} {{selectedPost.autor}}
   <div>{{selectedPost.contenido}}</div>
-  <div id="share">
-    <h3>{{i18n 'Share note'}}</h3>
-    {{#each selectedPost.share}}
+  <div id="postshare">
+    <h3>{{i18n 'Share'}}</h3>
+    {{#each selectedPost.postshare}}
       <p>{{autor}} shared</p>
       <p>
         {{contenido}}
@@ -16,7 +16,7 @@
     <div>
       <textarea rows="4" cols="20" id="sharecontent"></textarea>{{shareErrors.content}}
     </div>
-    <button id="savesharebutton">{{i18n 'Share with...'}}</button>
+    <button id="sharebutton">{{i18n 'Share with...'}}</button>
   {{/if}}
 
 </div>

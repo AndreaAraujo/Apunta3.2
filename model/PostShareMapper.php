@@ -6,7 +6,7 @@ require_once(__DIR__."/../model/Share.php");
 
 
 
-class ShareMapper {
+class PostShareMapper {
 
 	private $db;
 
