@@ -1,18 +1,6 @@
 <?php
 
-/**
-* Class URIDispatcher
-*
-* Class to map requests URIs to function callbacks.
-*
-* This class is a singleton and the expected use is to:
-* 1. Get the instance and call to map(...) method assign callback
-* functions to specific url patterns and http method.
-* 2. Call the dispatchRequest(...) method in order to process
-* the current request by finding a mathing mapping previously provided.
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class URIDispatcher {
 
 	// singleton
@@ -86,7 +74,7 @@ class URIDispatcher {
 				if ($this->cors == true && $_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 					$dispatchAsCORS = true;
 					array_push($allowedMethods,strtoupper($mapping["http_method"]));
-					
+
 				} else {
 					// if request content-type is "application/json" we will parse it
 					// and add it as a final parameter
@@ -96,7 +84,7 @@ class URIDispatcher {
 
 						array_push($parameters, json_decode(file_get_contents("php://input")));
 					}
-					
+
 					if ($this->cors == true) {
 						header('Access-Control-Allow-Origin: '.$this->allowedOrigin);
 					}
@@ -106,14 +94,14 @@ class URIDispatcher {
 				}
 			}
 		}
-		
+
 		if ($dispatchAsCORS) {
 			header('Access-Control-Allow-Origin: '.$this->allowedOrigin);
 			header('Access-Control-Allow-Headers:'.$this->allowedRequestHeaders);
 			header('Access-Control-Allow-Methods: '.implode(',', $allowedMethods).',OPTIONS');
 			return true;
 		}
-		
+
 		return false;
 	}
 

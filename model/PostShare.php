@@ -1,10 +1,10 @@
 <?php
 // file: model/Post.php
 
-require_once(__DIR__."/../core/ValidationException.php");
+/*require_once(__DIR__."/../core/ValidationException.php");
 
 
-class Share {
+class PostShare {
 
   private $nomUsu;
 	private $idNota;
@@ -42,4 +42,4 @@ class Share {
   	}
 
 
-  }
+  }*/

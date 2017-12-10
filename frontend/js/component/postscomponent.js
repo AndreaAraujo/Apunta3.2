@@ -49,7 +49,7 @@ class PostRowComponent extends Fronty.ModelComponent {
         var IdNota = event.target.getAttribute('item');
         this.postsComponent.postsService.deletePost(IdNota)
           .fail(() => {
-            alert('post cannot be deleted')
+            alert('Note cannot be deleted')
           })
           .always(() => {
             this.postsComponent.updatePosts();

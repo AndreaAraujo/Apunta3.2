@@ -4,14 +4,7 @@ require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/BaseRest.php");
 
-/**
-* Class UserRest
-*
-* It contains operations for adding and check users credentials.
-* Methods gives responses following Restful standards. Methods of this class
-* are intended to be mapped as callbacks using the URIDispatcher class.
-*
-*/
+
 class UserRest extends BaseRest {
 	private $userMapper;
 

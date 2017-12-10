@@ -78,7 +78,7 @@ class Post {
 
 
 		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "nota is not valid");
+			throw new ValidationException($errors, "note is not valid");
 		}
 	}
 
@@ -98,7 +98,7 @@ class Post {
 			}
 		}
 		if (sizeof($errors) > 0) {
-			throw new ValidationException($errors, "post is not valid");
+			throw new ValidationException($errors, "note is not valid");
 		}
 	}
 }

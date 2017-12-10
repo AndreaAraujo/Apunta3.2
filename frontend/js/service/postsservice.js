@@ -11,6 +11,14 @@ class PostsService {
     return $.get(AppConfig.backendServer+'/rest/post/' + IdNota);
   }
 
+/*  findPostShared() {
+	return $.get(AppConfig.backendServer+'/rest/shared');
+}*/
+
+/*  findPostS(IdNota) {alert(IdNota+ " ");
+    return $.get(AppConfig.backendServer+'/rest/share/' + IdNota);
+  }*/
+
   deletePost(IdNota) {
     return $.ajax({
       url: AppConfig.backendServer+'/rest/post/' + IdNota,
@@ -35,14 +43,14 @@ class PostsService {
       contentType: 'application/json'
     });
   }
-
-  createShare(postid, share) {
+/*
+  sharePost(IdNota, user) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post/' + postid + '/share',
+      url: AppConfig.backendServer+'/rest/post/' + IdNota + '/share',
       method: 'POST',
       data: JSON.stringify(share),
       contentType: 'application/json'
     });
-  }
+  }*/
 
 }

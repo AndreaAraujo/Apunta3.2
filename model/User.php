@@ -3,13 +3,7 @@
 
 require_once(__DIR__."/../core/ValidationException.php");
 
-/**
-* Class User
-*
-* Represents a User in the blog
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class User {
 
 
@@ -17,12 +11,7 @@ class User {
 	private $password;
 	private $email;
 
-	/**
-	* The constructor
-	*
-	* @param string $username The name of the user
-	* @param string $passwd The password of the user
-	*/
+
 	public function __construct($login=NULL, $password=NULL, $email = NULL) {
 
 		$this->login = $login;
@@ -30,11 +19,7 @@ class User {
     $this->email = $email;
 	}
 
-	/**
-	* Gets the username of this user
-	*
-	* @return string The username of this user
-	*/
+
 	public function getLogin() {
 		return $this->login;
 	}
@@ -62,15 +47,7 @@ class User {
 
 
 
-	/**
-	* Checks if the current user instance is valid
-	* for being registered in the database
-	*
-	* @throws ValidationException if the instance is
-	* not valid
-	*
-	* @return void
-	*/
+
 	public function checkIsValidForRegister() {
 		$errors = array();
 		if (strlen($this->login) < 5) {

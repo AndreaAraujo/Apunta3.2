@@ -29,4 +29,7 @@ class PostAddComponent extends Fronty.ModelComponent {
         });
     });
   }
+  onStart() {
+    this.postsModel.setSelectedPost(new PostModel());
+  }
 }

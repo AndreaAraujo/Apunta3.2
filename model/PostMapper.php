@@ -4,15 +4,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/Post.php");
-//require_once(__DIR__."/../model/Comment.php");
 
-/**
-* Class PostMapper
-*
-* Database interface for Post entities
-*
-* @author lipido <lipido@gmail.com>
-*/
 class PostMapper {
 
 	/**
@@ -25,14 +17,7 @@ class PostMapper {
 		$this->db = PDOConnection::getInstance();
 	}
 
-	/**
-	* Retrieves all posts
-	*
-	* Note: Comments are not added to the Post instances
-	*
-	* @throws PDOException if a database error occurs
-	* @return mixed Array of Post instances (without comments)
-	*/
+
 	public function findAll() {
 		$stmt = $this->db->query("SELECT * FROM nota, usuario WHERE usuario.login = nota.autor");
 		$posts_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -47,15 +32,7 @@ class PostMapper {
 		return $posts;
 	}
 
-	/**
-	* Loads a Post from the database given its id
-	*
-	* Note: Comments are not added to the Post
-	*
-	* @throws PDOException if a database error occurs
-	* @return Post The Post instances (without comments). NULL
-	* if the Post is not found
-	*/
+
 	public function findById($IdNota){
 		$stmt = $this->db->prepare("SELECT * FROM nota WHERE IdNota=?");
 		$stmt->execute(array($IdNota));
@@ -72,89 +49,51 @@ class PostMapper {
 		}
 	}
 
-	/**
-	* Loads a Post from the database given its id
-	*
-	* It includes all the comments
-	*
-	* @throws PDOException if a database error occurs
-	* @return Post The Post instances (without comments). NULL
-	* if the Post is not found
-	*/
-	/*public function findByIdWithComments($IdNota){
-		$stmt = $this->db->prepare("SELECT
-			IdNota as 'post.IdNota',
-			nombre as 'post.nombre',
-			contenido as 'post.contenido',
-			Usuario_idUsuario as 'post.Usuario_idUsuario',
 
 
-			FROM nota N
-			WHERE
-			IdNota=? ");
-
-			$stmt->execute(array($IdNota));
-			$post_wt_comments= $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-			if (sizeof($post_wt_comments) > 0) {
-				$post = new Post($post_wt_comments[0]["post.id"],
-				$post_wt_comments[0]["post.title"],
-				$post_wt_comments[0]["post.content"],
-				new User($post_wt_comments[0]["post.author"]));
-				$comments_array = array();
-				if ($post_wt_comments[0]["comment.id"]!=null) {
-					foreach ($post_wt_comments as $comment){
-						$comment = new Comment( $comment["comment.id"],
-						$comment["comment.content"],
-						new User($comment["comment.author"]),
-						$post);
-						array_push($comments_array, $comment);
-					}
-				}
-				$post->setComments($comments_array);
-
-				return $post;
-			}else {
-				return NULL;
-			}
-		}*/
-
-		/**
-		* Saves a Post into the database
-		*
-		* @param Post $post The post to be saved
-		* @throws PDOException if a database error occurs
-		* @return int The mew post id
-		*/
 		public function save(Post $post) {
 			$stmt = $this->db->prepare("INSERT INTO nota(nombre, contenido, autor) values (?,?,?)");
 			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getAutor()->getLogin()));
 			return $this->db->lastInsertId();
 		}
 
-		/**
-		* Updates a Post in the database
-		*
-		* @param Post $post The post to be updated
-		* @throws PDOException if a database error occurs
-		* @return void
-		*/
+
 		public function update(Post $post) {
 			$stmt = $this->db->prepare("UPDATE nota set nombre=?, contenido=? where IdNota=?");
 			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getIdNota()));
 		}
 
 
-		/**
-		* Deletes a Post into the database
-		*
-		* @param Post $post The post to be deleted
-		* @throws PDOException if a database error occurs
-		* @return void
-		*/
+
 		public function delete(Post $post) {
 			$stmt = $this->db->prepare("DELETE from nota WHERE IdNota=?");
 			$stmt->execute(array($post->getIdNota()));
 		}
+
+		/*
+		public function findPostShared($nombreUsuario) {
+			$stmt = $this->db->prepare("SELECT * FROM notas_compartidas, nota ,usuario WHERE notas_compartidas.nomUsu =? and  notas_compartidas.IdNota = nota.IdNota and usuario.login = nota.autor ");
+			$stmt->execute(array($nombreUsuario));
+
+			$posts_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			$posts = array();
+
+			foreach ($posts_db as $post) {
+				$autor = new User($post["login"]);
+				array_push($posts, new Post($post["IdNota"], $post["nombre"], $post["contenido"], $autor));
+			}
+
+			return $posts;
+		}
+
+		public function share(PostShared $post) {
+	    $stmt = $this->db->prepare("INSERT INTO notas_compartidas(nomUsu, IdNota) values (?,?)");
+	    $stmt->execute(array($post->getNomUsu(), $post->getIdNota()));
+			return $this->db->lastInsertId();
+	  }
+
+
+		*/
 
 	}
