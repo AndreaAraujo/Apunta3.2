@@ -18,16 +18,7 @@ img{
 	font-size: 20px;
 }
 
-body{
-	font-family: "Georgia";
-	overflow-x: hidden;
-  overflow-y: hidden;
-	position: absolute;
-	background: url("../img/fondoLogin.png");
-	background-repeat : repeat-y;
-	background-size: cover;
-	height: 800px;
-}
+
 
 li{
 	list-style:none;
