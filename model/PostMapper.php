@@ -71,6 +71,21 @@ class PostMapper {
 			return NULL;
 		}
 	}
+	public function findPostShared($nombreUsuario) {
+    $stmt = $this->db->prepare("SELECT * FROM notas_compartidas, nota ,usuario WHERE notas_compartidas.nomUsu =? and  notas_compartidas.idNota = nota.IdNota and usuario.login = nota.autor ");
+    $stmt->execute(array($nombreUsuario));
+    $posts_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $posts = array();
+
+    foreach ($posts_db as $post) {
+      $autor = new User($post["login"]);
+      array_push($posts, new Post($post["IdNota"], $post["nombre"], $post["contenido"], $autor));
+    }
+
+    return $posts;
+  }
+
 
 	/**
 	* Loads a Post from the database given its id

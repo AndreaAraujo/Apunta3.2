@@ -13,13 +13,14 @@ class PostsComponent extends Fronty.ModelComponent {
   }
 
   onStart() {
-    this.updatePosts();
+    if (this.userModel.isLogged) {
+      this.updatePosts();
+    }
   }
 
   updatePosts() {
-    this.postsService.findAllPosts().then((data) => {
-
-      this.postsModel.setPosts(
+	  this.postsService.findAllPosts().then((data) => {
+		this.postsModel.setPosts(
         // create a Fronty.Model for each item retrieved from the backend
         data.map(
           (item) => new PostModel(item.IdNota, item.nombre, item.contenido, item.autor)
@@ -27,8 +28,9 @@ class PostsComponent extends Fronty.ModelComponent {
     });
   }
 
+
   // Override
-  createChildModelComponent(className, element, id, modelItem) {
+  createChildModelComponent(className, element, idNota, modelItem) {
     return new PostRowComponent(modelItem, this.userModel, this.router, this);
   }
 }

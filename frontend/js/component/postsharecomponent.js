@@ -9,7 +9,7 @@ class PostShareComponent extends Fronty.ModelComponent {
     this.postsService = new PostsService();
 
     this.addEventListener('click', '#sharebutton', () => {
-      var selectedId = this.router.getRouteQueryParam('id');
+      var selectedId = this.router.getRouteQueryParam('IdNota');
       this.postsService.sharePost(selectedId, {
           content: $('#sharecontent').val()
         })
@@ -30,9 +30,9 @@ class PostShareComponent extends Fronty.ModelComponent {
   }
 
   onStart() {
-    var selectedId = this.router.getRouteQueryParam('id');
+    var selectedId = this.router.getRouteQueryParam('IdNota');
     if (selectedId != null) {
-      this.postsService.findPost2(selectedId)
+      this.postsService.findPostS(selectedId)
         .then((post) => {
           this.postsModel.setSelectedPost(post);
         });

@@ -10,8 +10,8 @@ class PostSharedComponent extends Fronty.ModelComponent {
 
 	this.addEventListener('click', '.remove-button', (event) => {
       if (confirm(I18n.translate('Are you sure?'))) {
-        var idNotaC = event.target.getAttribute('item'); alert(idNotaC);
-        this.postsService.deletePost(idNotaC)
+        var IdNota = event.target.getAttribute('item'); alert(IdNota);
+        this.postsService.deletePost(IdNota)
           .fail(() => {
             alert('note cannot be deleted')
           })
@@ -36,11 +36,11 @@ class PostSharedComponent extends Fronty.ModelComponent {
   }
 
   updatePosts() {
-	  this.postsService.findShared().then((data) => {
+	  this.postsService.findPostShared().then((data) => {
 		this.postsModel.setPosts(
         // create a Fronty.Model for each item retrieved from the backend
         data.map(
-          (item) => new PostModel(item.idNota, item.nombre, item.autor)
+          (item) => new PostModel(item.IdNota, item.nombre, item.contenido, item.autor)
       ));
     });
   }

@@ -9,9 +9,9 @@ class PostViewComponent extends Fronty.ModelComponent {
 
     this.postsService = new PostsService();
 
-    this.addEventListener('click', '#savesharebutton', () => {
+    this.addEventListener('click', '#sharebutton', () => {
       var user = $('#user').val();
-      var selectedId = this.router.getRouteQueryParam('id');
+      var selectedId = this.router.getRouteQueryParam('idNota');
       this.postsService.sharePost(selectedId, user)
         .then(() => {
           this.postsModel.set((model) => {

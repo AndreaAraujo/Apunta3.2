@@ -11,11 +11,11 @@ class PostsService {
     return $.get(AppConfig.backendServer+'/rest/post/' + IdNota);
   }
 
-  findShared() {
+  findPostShared() {
 	return $.get(AppConfig.backendServer+'/rest/shared');
   }
 
-  findPost2(id) {alert(idNota+ "contenido");
+  findPostS(id) {alert(idNota+ "sdfsdf");
     return $.get(AppConfig.backendServer+'/rest/share/' + idNota);
   }
 
@@ -44,9 +44,9 @@ class PostsService {
     });
   }
 
-  sharePost(postid, user) {
+  sharePost(idNota, user) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post/' + postid + '/share',
+      url: AppConfig.backendServer+'/rest/post/' + idNota + '/share',
       method: 'POST',
       data: JSON.stringify(share),
       contentType: 'application/json'

@@ -23,7 +23,7 @@ require_once(__DIR__."/BaseRest.php");
 */
 class PostRest extends BaseRest {
 	private $postMapper;
-	private $shareMapper;
+	private $postShareMapper;
 
 
 	public function __construct() {
@@ -31,12 +31,12 @@ class PostRest extends BaseRest {
 
 		$this->postMapper = new PostMapper();
 
-		$this->PostShareMapper = new PostShareMapper();
+		$this->postShareMapper = new PostShareMapper();
 
 	}
-
 	public function getPosts() {
-		$posts = $this->postMapper->findAll();
+		$currentUser = parent::authenticateUser();
+		$posts = $this->postMapper->findAll($currentUser->getLogin());
 
 		// json_encode Post objects.
 		// since Post objects have private fields, the PHP json_encode will not
@@ -45,10 +45,10 @@ class PostRest extends BaseRest {
 		$posts_array = array();
 		foreach($posts as $post) {
 			array_push($posts_array, array(
-				"IdNota" => $post->getIdNota(),
-				"nombre" => $post->getNombre(),
-				"contenido" => $post->getContenido(),
-				"autor" => $post->getAutor()->getLogin()
+			"IdNota" => $post->getIdNota(),
+			"nombre" => $post->getNombre(),
+			"contenido" => $post->getContenido(),
+			"autor" => $post->getAutor()->getLogin()
 			));
 		}
 
@@ -163,25 +163,40 @@ class PostRest extends BaseRest {
 
 		header($_SERVER['SERVER_PROTOCOL'].' 204 No Content');
 	}
-
-	public function createShare($postId, $data) {
+	public function getPostShared() {
 		$currentUser = parent::authenticateUser();
+		$posts = $this->postMapper->findPostShared($currentUser->getLogin());
 
-		$post = $this->postMapper->findById($postId);
-		if ($post == NULL) {
-			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
-			echo("Post with id ".$postId." not found");
+		// json_encode Post objects.
+		// since Post objects have private fields, the PHP json_encode will not
+		// encode them, so we will create an intermediate array using getters and
+		// encode it finally
+		$posts_array = array();
+		foreach($posts as $post) {
+			array_push($posts_array, array(
+				"idNota" => $post->getIdNota(),
+				"nombre" => $post->getNombre(),
+				"contenido" => $post->getContenido(),
+				"autor" => $post->getAutor()->getLogin()
+			));
 		}
 
-		$share = new Share();
-		$share->setContent($data->content);
-		$share->setAutor($currentUser);
-		$share->setPost($post);
+		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
+		header('Content-Type: application/json');
+		echo(json_encode($posts_array));
+	}
+
+	public function sharePost($idNota, $user) {
+		$currentUser = parent::authenticateUser();
+		$post = $this->postMapper->findById($idNota);
+
+		if ($post == NULL) {
+			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
+			echo("Note with id ".$idNota." not found");
+		}
 
 		try {
-			$share->checkIsValidForCreate(); // if it fails, ValidationException
-
-			$this->shareMapper->save($share);
+			$this->postMapper->share($post, $user);
 
 			header($_SERVER['SERVER_PROTOCOL'].' 201 Created');
 
@@ -199,7 +214,8 @@ URIDispatcher::getInstance()
 ->map("GET",	"/post", array($postRest,"getPosts"))
 ->map("GET",	"/post/$1", array($postRest,"readPost"))
 ->map("POST", "/post", array($postRest,"createPost"))
-->map("POST", "/post/$1/postshare", array($postRest,"sharePost"))
+->map("POST",  "/post/$1/share", array($postRest,"sharePost"))
 ->map("PUT",	"/post/$1", array($postRest,"updatePost"))
-->map("DELETE", "/post/$1", array($postRest,"deletePost"));
+->map("DELETE", "/post/$1", array($postRest,"deletePost"))
+->map("GET",	"/shared", array($postRest,"getPostShared"));
 ?>
