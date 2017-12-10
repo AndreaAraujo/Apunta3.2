@@ -6,9 +6,6 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/Post.php");
 require_once(__DIR__."/../model/PostMapper.php");
 
-//require_once(__DIR__."/../model/PostShare.php");
-//require_once(__DIR__."/../model/PostShareMapper.php");
-
 require_once(__DIR__."/BaseRest.php");
 
 /**
@@ -23,15 +20,11 @@ require_once(__DIR__."/BaseRest.php");
 */
 class PostRest extends BaseRest {
 	private $postMapper;
-	//private $postShareMapper;
-
 
 	public function __construct() {
 		parent::__construct();
 
 		$this->postMapper = new PostMapper();
-
-		//$this->postShareMapper = new PostShareMapper();
 
 	}
 	public function getPosts() {
@@ -174,7 +167,7 @@ class PostRest extends BaseRest {
 		$posts_array = array();
 		foreach($posts as $post) {
 			array_push($posts_array, array(
-				"idNota" => $post->getIdNota(),
+				"IdNota" => $post->getIdNota(),
 				"nombre" => $post->getNombre(),
 				"contenido" => $post->getContenido(),
 				"autor" => $post->getAutor()->getLogin()
@@ -186,13 +179,13 @@ class PostRest extends BaseRest {
 		echo(json_encode($posts_array));
 	}
 
-	public function sharePost($idNota, $user) {
+	public function sharePost($IdNota, $user) {
 		$currentUser = parent::authenticateUser();
-		$post = $this->postMapper->findById($idNota);
+		$post = $this->postMapper->findById($IdNota);
 
 		if ($post == NULL) {
 			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
-			echo("Note with id ".$idNota." not found");
+			echo("Note with id ".$IdNota." not found");
 		}
 
 		try {

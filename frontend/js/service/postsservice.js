@@ -15,8 +15,8 @@ class PostsService {
 	return $.get(AppConfig.backendServer+'/rest/shared');
   }
 
-  findPostS(id) {alert(idNota+ "sdfsdf");
-    return $.get(AppConfig.backendServer+'/rest/share/' + idNota);
+  findPostS(IdNota) {alert(IdNota+ " ");
+    return $.get(AppConfig.backendServer+'/rest/share/' + IdNota);
   }
 
   deletePost(IdNota) {
@@ -44,9 +44,9 @@ class PostsService {
     });
   }
 
-  sharePost(idNota, user) {
+  sharePost(IdNota, user) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post/' + idNota + '/share',
+      url: AppConfig.backendServer+'/rest/post/' + IdNota + '/share',
       method: 'POST',
       data: JSON.stringify(share),
       contentType: 'application/json'

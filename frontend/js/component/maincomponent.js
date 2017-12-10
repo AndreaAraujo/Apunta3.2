@@ -30,7 +30,7 @@ class MainComponent extends Fronty.RouterComponent {
       },
       'shared-post': {
           component: new PostSharedComponent(postsModel, userModel, this),
-          title: 'Shared'
+          title: 'Shared Post'
       },
       login: {
         component: new LoginComponent(userModel, this),
