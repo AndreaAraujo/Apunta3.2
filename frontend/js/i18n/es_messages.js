@@ -8,6 +8,7 @@ I18n.translations = {
   'Spanish': 'Español',
   'Name' : 'Nombre',
   'Content' : 'Contenido',
+  'Share note' : 'Compartir nota',
   'by': 'por',
   'Name is mandatory': 'El nombre es obligatorio',
   'Content is mandatory': 'El contenido es obligatorio',
