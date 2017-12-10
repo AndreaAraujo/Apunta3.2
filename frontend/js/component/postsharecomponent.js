@@ -8,13 +8,13 @@ class PostShareComponent extends Fronty.ModelComponent {
 
     this.postsService = new PostsService();
 
-    this.addEventListener('click', '#sharebutton', () => {
+    this.addEventListener('click', '.share-button', () => {
       var selectedId = this.router.getRouteQueryParam('IdNota');
       this.postsService.sharePost(selectedId, {
           content: $('#sharecontent').val()
         })
         .then(() => {
-          $('#sharebutton').val('');
+          $('.share-button').val('');
           this.loadPost(selectedId);
         })
         .fail((xhr, errorThrown, statusText) => {
