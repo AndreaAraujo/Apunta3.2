@@ -72,7 +72,7 @@ class PostMapper {
 		}
 	}
 	public function findPostShared($nombreUsuario) {
-    $stmt = $this->db->prepare("SELECT * FROM notas_compartidas, nota ,usuario WHERE notas_compartidas.nomUsu =? and  notas_compartidas.idNota = nota.IdNota and usuario.login = nota.autor ");
+    $stmt = $this->db->prepare("SELECT * FROM notas_compartidas, nota ,usuario WHERE notas_compartidas.nomUsu =? and  notas_compartidas.IdNota = nota.IdNota and usuario.login = nota.autor ");
     $stmt->execute(array($nombreUsuario));
     $posts_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -171,5 +171,10 @@ class PostMapper {
 			$stmt = $this->db->prepare("DELETE from nota WHERE IdNota=?");
 			$stmt->execute(array($post->getIdNota()));
 		}
+		public function share(PostShared $post) {
+	    $stmt = $this->db->prepare("INSERT INTO notas_compartidas(nomUsu, idNota) values (?,?)");
+	    $stmt->execute(array($post->getNomUsu(), $post->getIdNota()));
+
+	  }
 
 	}

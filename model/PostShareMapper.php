@@ -1,6 +1,6 @@
 <?php
 // file: model/PostMapper.php
-require_once(__DIR__."/../core/PDOConnection.php");
+/*require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/PostShare.php");
 
@@ -15,7 +15,7 @@ class PostShareMapper {
 	}
 
 
-  /*Buscar notas compartidas con el ususario logeado*/
+  /*Buscar notas compartidas con el ususario logeado
   public function findShared($nombreUsuario) {
     $stmt = $this->db->prepare("SELECT * FROM notas_compartidas, notas ,usuario WHERE notas_compartidas.nomUsu =? and  notas_compartidas.idNota = notas.IdNota and usuario.login = notas.autor ");
     $stmt->execute(array($nombreUsuario));
@@ -39,4 +39,4 @@ class PostShareMapper {
 
 
 
-}
+}*/

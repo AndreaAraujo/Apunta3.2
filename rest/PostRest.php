@@ -6,8 +6,8 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/Post.php");
 require_once(__DIR__."/../model/PostMapper.php");
 
-require_once(__DIR__."/../model/PostShare.php");
-require_once(__DIR__."/../model/PostShareMapper.php");
+//require_once(__DIR__."/../model/PostShare.php");
+//require_once(__DIR__."/../model/PostShareMapper.php");
 
 require_once(__DIR__."/BaseRest.php");
 
@@ -23,7 +23,7 @@ require_once(__DIR__."/BaseRest.php");
 */
 class PostRest extends BaseRest {
 	private $postMapper;
-	private $postShareMapper;
+	//private $postShareMapper;
 
 
 	public function __construct() {
@@ -31,7 +31,7 @@ class PostRest extends BaseRest {
 
 		$this->postMapper = new PostMapper();
 
-		$this->postShareMapper = new PostShareMapper();
+		//$this->postShareMapper = new PostShareMapper();
 
 	}
 	public function getPosts() {
