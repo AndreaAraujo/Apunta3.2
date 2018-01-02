@@ -3,65 +3,65 @@
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 
-require_once(__DIR__."/../model/Post.php");
-require_once(__DIR__."/../model/PostMapper.php");
+require_once(__DIR__."/../model/Note.php");
+require_once(__DIR__."/../model/NoteMapper.php");
 
 
 require_once(__DIR__."/BaseRest.php");
 
 
-class PostRest extends BaseRest {
-	private $postMapper;
+class NoteRest extends BaseRest {
+	private $noteMapper;
 
 
 
 	public function __construct() {
 		parent::__construct();
 
-		$this->postMapper = new PostMapper();
+		$this->noteMapper = new NoteMapper();
 
 	}
 
 
 	public function getPosts() {
-		$posts = $this->postMapper->findAll();
+		$notes = $this->noteMapper->findAll();
 
 		// json_encode Post objects.
 		// since Post objects have private fields, the PHP json_encode will not
 		// encode them, so we will create an intermediate array using getters and
 		// encode it finally
-		$posts_array = array();
-		foreach($posts as $post) {
-			array_push($posts_array, array(
-				"IdNota" => $post->getIdNota(),
-				"nombre" => $post->getNombre(),
-				"contenido" => $post->getContenido(),
-				"autor" => $post->getAutor()->getLogin()
+		$notes_array = array();
+		foreach($notes as $note) {
+			array_push($notes_array, array(
+				"IdNota" => $note->getIdNota(),
+				"nombre" => $note->getNombre(),
+				"contenido" => $note->getContenido(),
+				"autor" => $note->getAutor()->getLogin()
 			));
 		}
 
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
 		header('Content-Type: application/json');
-		echo(json_encode($posts_array));
+		echo(json_encode($notes_array));
 	}
 
-	public function createPost($data) {
+	public function createNote($data) {
 		$currentUser = parent::authenticateUser();
-		$post = new Post();
+		$note = new Note();
 
 		if (isset($data->nombre) && isset($data->contenido)) {
-			$post->setNombre($data->nombre);
-			$post->setContenido($data->contenido);
+			$note->setNombre($data->nombre);
+			$note->setContenido($data->contenido);
 
-			$post->setAutor($currentUser);
+			$note->setAutor($currentUser);
 		}
 
 		try {
 			// validate Post object
-			$post->checkIsValidForCreate(); // if it fails, ValidationException
+			$note->checkIsValidForCreate(); // if it fails, ValidationException
 
 			// save the Post object into the database
-			$IdNota = $this->postMapper->save($post);
+			$IdNota = $this->noteMapper->save($note);
 
 			// response OK. Also send post in content
 			header($_SERVER['SERVER_PROTOCOL'].' 201 Created');
@@ -69,8 +69,8 @@ class PostRest extends BaseRest {
 			header('Content-Type: application/json');
 			echo(json_encode(array(
 				"IdNota"=>$IdNota,
-				"nombre"=>$post->getNombre(),
-				"contenido" => $post->getContenido()
+				"nombre"=>$note->getNombre(),
+				"contenido" => $note->getContenido()
 			)));
 
 		} catch (ValidationException $e) {
@@ -80,49 +80,49 @@ class PostRest extends BaseRest {
 		}
 	}
 
-	public function readPost($IdNota) {
+	public function readNote($IdNota) {
 		// find the Post object in the database
-		$post = $this->postMapper->findById($IdNota);
-		if ($post == NULL) {
+		$note = $this->noteMapper->findById($IdNota);
+		if ($note == NULL) {
 			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
-			echo("Post with id ".$IdNota." not found");
+			echo("Note with id ".$IdNota." not found");
 		}
 
-		$post_array = array(
-			"IdNota" => $post->getIdNota(),
-			"nombre" => $post->getNombre(),
-			"contenido" => $post->getContenido(),
-			"autor" => $post->getAutor()->getLogin()
+		$note_array = array(
+			"IdNota" => $note->getIdNota(),
+			"nombre" => $note->getNombre(),
+			"contenido" => $note->getContenido(),
+			"autor" => $note->getAutor()->getLogin()
 
 		);
 
 
 		header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
 		header('Content-Type: application/json');
-		echo(json_encode($post_array));
+		echo(json_encode($note_array));
 	}
 
-	public function updatePost($IdNota, $data) {
+	public function updateNote($IdNota, $data) {
 		$currentUser = parent::authenticateUser();
 
-		$post = $this->postMapper->findById($IdNota);
-		if ($post == NULL) {
+		$note = $this->noteMapper->findById($IdNota);
+		if ($note == NULL) {
 			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
-			echo("Post with id ".$IdNota." not found");
+			echo("Note with id ".$IdNota." not found");
 		}
 
 		// Check if the Post author is the currentUser (in Session)
-		if ($post->getAutor() != $currentUser) {
+		if ($note->getAutor() != $currentUser) {
 			header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
-			echo("you are not the author of this post");
+			echo("you are not the author of this note");
 		}
-		$post->setNombre($data->nombre);
-		$post->setContenido($data->contenido);
+		$note->setNombre($data->nombre);
+		$note->setContenido($data->contenido);
 
 		try {
 			// validate Post object
-			$post->checkIsValidForUpdate(); // if it fails, ValidationException
-			$this->postMapper->update($post);
+			$note->checkIsValidForUpdate(); // if it fails, ValidationException
+			$this->noteMapper->update($note);
 			header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
 		}catch (ValidationException $e) {
 			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
@@ -131,23 +131,23 @@ class PostRest extends BaseRest {
 		}
 	}
 
-	public function deletePost($IdNota) {
+	public function deleteNote($IdNota) {
 		$currentUser = parent::authenticateUser();
-		$post = $this->postMapper->findById($IdNota);
+		$note = $this->noteMapper->findById($IdNota);
 
-		if ($post == NULL) {
+		if ($note == NULL) {
 			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
-			echo("Post with id ".$IdNota." not found");
+			echo("Note with id ".$IdNota." not found");
 			return;
 		}
 		// Check if the Post author is the currentUser (in Session)
-		if ($post->getAutor() != $currentUser) {
+		if ($note->getAutor() != $currentUser) {
 			header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
-			echo("you are not the author of this post");
+			echo("you are not the author of this note");
 			return;
 		}
 
-		$this->postMapper->delete($post);
+		$this->noteMapper->delete($note);
 
 		header($_SERVER['SERVER_PROTOCOL'].' 204 No Content');
 	}
@@ -201,7 +201,7 @@ public function sharePost($IdNota, $user) {
 }
 
 // URI-MAPPING for this Rest endpoint
-$postRest = new PostRest();
+$noteRest = new NoteRest();
 /*
 URIDispatcher::getInstance()
 ->map("GET",	"/post", array($postRest,"getPosts"))
@@ -214,10 +214,9 @@ URIDispatcher::getInstance()
 */
 
 URIDispatcher::getInstance()
-->map("GET",	"/post", array($postRest,"getPosts"))
-->map("GET",	"/post/$1", array($postRest,"readPost"))
-->map("POST", "/post", array($postRest,"createPost"))
-->map("POST", "/post/$1/share", array($postRest,"createShare"))
-->map("PUT",	"/post/$1", array($postRest,"updatePost"))
-->map("DELETE", "/post/$1", array($postRest,"deletePost"));
+->map("GET",	"/note", array($noteRest,"getNotes"))
+->map("GET",	"/note/$1", array($noteRest,"readPost"))
+->map("POST", "/note", array($noteRest,"createNote"))
+->map("PUT",	"/note/$1", array($noteRest,"updateNote"))
+->map("DELETE", "/note/$1", array($noteRest,"deleteNote"));
 ?>

@@ -1,26 +1,26 @@
-class PostShareComponent extends Fronty.ModelComponent {
-  constructor(postsModel, userModel, router) {
-    super(Handlebars.templates.postview, postsModel);
-    this.postsModel = postsModel; // posts
+class NoteShareComponent extends Fronty.ModelComponent {
+  constructor(notesModel, userModel, router) {
+    super(Handlebars.templates.noteview, notesModel);
+    this.notesModel = notesModel; // posts
     this.userModel = userModel; // global
     this.addModel('user', userModel);
     this.router = router;
 
-    this.postsService = new PostsService();
+    this.notesService = new NotesService();
 
     this.addEventListener('click', '.share-button', () => {
       var selectedId = this.router.getRouteQueryParam('IdNota');
-      this.postsService.sharePost(selectedId, {
+      this.notesService.shareNote(selectedId, {
           content: $('#sharecontent').val()
         })
         .then(() => {
           $('.share-button').val('');
-          this.loadPost(selectedId);
+          this.loadnNte(selectedId);
         })
         .fail((xhr, errorThrown, statusText) => {
           if (xhr.status == 400) {
-            this.postsModel.set(() => {
-              this.postsModel.commentErrors = xhr.responseJSON;
+            this.notesModel.set(() => {
+              this.notesModel.commentErrors = xhr.responseJSON;
             });
           } else {
             alert('an error has occurred during request: ' + statusText + '.' + xhr.responseText);
@@ -32,9 +32,9 @@ class PostShareComponent extends Fronty.ModelComponent {
   onStart() {
     var selectedId = this.router.getRouteQueryParam('IdNota');
     if (selectedId != null) {
-      this.postsService.findPostS(selectedId)
-        .then((post) => {
-          this.postsModel.setSelectedPost(post);
+      this.notesService.findNote(selectedId)
+        .then((note) => {
+          this.notesModel.setSelectedNote(note);
         });
     }
   }

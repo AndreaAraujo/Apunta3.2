@@ -1,14 +1,14 @@
-class PostsService {
+class NotesService {
   constructor() {
 
   }
 
-  findAllPosts() {
-    return $.get(AppConfig.backendServer+'/rest/post');
+  findAllNotes() {
+    return $.get(AppConfig.backendServer+'/rest/note');
   }
 
-  findPost(IdNota) {
-    return $.get(AppConfig.backendServer+'/rest/post/' + IdNota);
+  findNote(IdNota) {
+    return $.get(AppConfig.backendServer+'/rest/note/' + IdNota);
   }
 
 /*  findPostShared() {
@@ -19,27 +19,27 @@ class PostsService {
     return $.get(AppConfig.backendServer+'/rest/share/' + IdNota);
   }*/
 
-  deletePost(IdNota) {
+  deleteNote(IdNota) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post/' + IdNota,
+      url: AppConfig.backendServer+'/rest/note/' + IdNota,
       method: 'DELETE'
     });
   }
 
-  savePost(post) {
+  saveNote(note) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post/' + post.IdNota,
+      url: AppConfig.backendServer+'/rest/note/' + note.IdNota,
       method: 'PUT',
-      data: JSON.stringify(post),
+      data: JSON.stringify(note),
       contentType: 'application/json'
     });
   }
 
-  addPost(post) {
+  addNote(note) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post',
+      url: AppConfig.backendServer+'/rest/note',
       method: 'POST',
-      data: JSON.stringify(post),
+      data: JSON.stringify(note),
       contentType: 'application/json'
     });
   }

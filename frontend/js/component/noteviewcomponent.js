@@ -1,27 +1,27 @@
-class PostViewComponent extends Fronty.ModelComponent {
-  constructor(postsModel, userModel, router) {
-    super(Handlebars.templates.postview, postsModel);
+class NoteViewComponent extends Fronty.ModelComponent {
+  constructor(notesModel, userModel, router) {
+    super(Handlebars.templates.noteview, notesModel);
 
-    this.postsModel = postsModel; // posts
+    this.notesModel = notesModel; // posts
     this.userModel = userModel; // global
     this.addModel('user', userModel);
     this.router = router;
 
-    this.postsService = new PostsService();
+    this.notesService = new NotesService();
 
     this.addEventListener('click', '#savesharebutton', () => {
       var selectedId = this.router.getRouteQueryParam('IdNota');
-      this.postsService.createShare(selectedId, {
+      this.notesService.createShare(selectedId, {
           content: $('#sharecontent').val()
         })
         .then(() => {
           $('#sharecontent').val('');
-          this.loadPost(selectedId);
+          this.loadNote(selectedId);
         })
         .fail((xhr, errorThrown, statusText) => {
           if (xhr.status == 400) {
-            this.postsModel.set(() => {
-              this.postsModel.shareErrors = xhr.responseJSON;
+            this.notesModel.set(() => {
+              this.notesModel.shareErrors = xhr.responseJSON;
             });
           } else {
             alert('an error has occurred during request: ' + statusText + '.' + xhr.responseText);
@@ -57,14 +57,14 @@ class PostViewComponent extends Fronty.ModelComponent {
 
   onStart() {
     var selectedId = this.router.getRouteQueryParam('IdNota');
-    this.loadPost(selectedId);
+    this.loadNote(selectedId);
   }
 
-  loadPost(IdNota) {
+  loadNote(IdNota) {
     if (IdNota != null) {
-      this.postsService.findPost(IdNota)
-        .then((post) => {
-          this.postsModel.setSelectedPost(post);
+      this.notesService.findNote(IdNota)
+        .then((note) => {
+          this.notesModel.setSelectedNote(note);
         });
     }
   }

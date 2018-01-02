@@ -3,9 +3,9 @@
 require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/User.php");
-require_once(__DIR__."/../model/Post.php");
+require_once(__DIR__."/../model/Note.php");
 
-class PostMapper {
+class NoteMapper {
 
 	/**
 	* Reference to the PDO connection
@@ -20,30 +20,30 @@ class PostMapper {
 
 	public function findAll() {
 		$stmt = $this->db->query("SELECT * FROM nota, usuario WHERE usuario.login = nota.autor");
-		$posts_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$notes_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		$posts = array();
+		$notes = array();
 
-		foreach ($posts_db as $post) {
+		foreach ($notes_db as $note) {
 			$author = new User($post["login"]);
-			array_push($posts, new Post($post["IdNota"], $post["nombre"], $post["contenido"], $author));
+			array_push($notes, new Post($note["IdNota"], $note["nombre"], $note["contenido"], $author));
 		}
 
-		return $posts;
+		return $notes;
 	}
 
 
 	public function findById($IdNota){
 		$stmt = $this->db->prepare("SELECT * FROM nota WHERE IdNota=?");
 		$stmt->execute(array($IdNota));
-		$post = $stmt->fetch(PDO::FETCH_ASSOC);
+		$note = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if($post != null) {
-			return new Post(
-			$post["IdNota"],
-			$post["nombre"],
-			$post["contenido"],
-			new User($post["autor"]));
+		if($note!= null) {
+			return new Note(
+			$note["IdNota"],
+			$note["nombre"],
+			$note["contenido"],
+			new User($note["autor"]));
 		} else {
 			return NULL;
 		}
@@ -51,23 +51,23 @@ class PostMapper {
 
 
 
-		public function save(Post $post) {
+		public function save(Note $note) {
 			$stmt = $this->db->prepare("INSERT INTO nota(nombre, contenido, autor) values (?,?,?)");
-			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getAutor()->getLogin()));
+			$stmt->execute(array($note->getNombre(), $note->getContenido(), $note->getAutor()->getLogin()));
 			return $this->db->lastInsertId();
 		}
 
 
-		public function update(Post $post) {
+		public function update(Post $note) {
 			$stmt = $this->db->prepare("UPDATE nota set nombre=?, contenido=? where IdNota=?");
-			$stmt->execute(array($post->getNombre(), $post->getContenido(), $post->getIdNota()));
+			$stmt->execute(array($note->getNombre(), $note->getContenido(), $note->getIdNota()));
 		}
 
 
 
-		public function delete(Post $post) {
+		public function delete(Note $note) {
 			$stmt = $this->db->prepare("DELETE from nota WHERE IdNota=?");
-			$stmt->execute(array($post->getIdNota()));
+			$stmt->execute(array($note->getIdNota()));
 		}
 
 		/*

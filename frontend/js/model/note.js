@@ -1,7 +1,7 @@
-class PostModel extends Fronty.Model {
+class NoteModel extends Fronty.Model {
 
   constructor(IdNota, nombre, contenido, autor) {
-    super('PostModel'); //call super
+    super('NoteModel'); //call super
 
     if (IdNota) {
       this.IdNota = IdNota;

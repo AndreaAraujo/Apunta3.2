@@ -1,29 +1,29 @@
-class PostSharedComponent extends Fronty.ModelComponent {
-  constructor(postsModel, userModel, router) {
-    super(Handlebars.templates.postsharedtable, postsModel, null, null);
-    this.postsModel = postsModel;
+class NoteSharedComponent extends Fronty.ModelComponent {
+  constructor(notesModel, userModel, router) {
+    super(Handlebars.templates.notesharedtable, notesModel, null, null);
+    this.notesModel = notesModel;
     this.userModel = userModel;
     this.addModel('user', userModel);
     this.router = router;
 
-    this.postsService = new PostsService();
+    this.notesService = new NotesService();
 
 	this.addEventListener('click', '.remove-button', (event) => {
       if (confirm(I18n.translate('Are you sure?'))) {
         var IdNota = event.target.getAttribute('item'); alert(IdNota);
-        this.postsService.deletePost(IdNota)
+        this.notesService.deleteNote(IdNota)
           .fail(() => {
             alert('note cannot be deleted')
           })
           .always(() => {
-            this.updatePosts();
+            this.updateNotes();
           });
       }
     });
 
 	this.userModel.addObserver(() => {
 		if (this.userModel.isLogged) {
-			this.updatePosts();
+			this.updateNotes();
 		}
 	});
 
@@ -31,16 +31,16 @@ class PostSharedComponent extends Fronty.ModelComponent {
 
   onStart() {
 	  if (this.userModel.isLogged) {
-		this.updatePosts();
+		this.updateNotes();
 	  }
   }
 
-  updatePosts() {
-	  this.postsService.findPostShared().then((data) => {
-		this.postsModel.setPosts(
+  updateNotes() {
+	  this.notesService.findNoteShared().then((data) => {
+		this.noteModel.setNotes(
         // create a Fronty.Model for each item retrieved from the backend
         data.map(
-          (item) => new PostModel(item.IdNota, item.nombre, item.contenido, item.autor)
+          (item) => new NoteModel(item.IdNota, item.nombre, item.contenido, item.autor)
       ));
     });
   }

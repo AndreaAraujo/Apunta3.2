@@ -1,9 +1,9 @@
 <div>
-  <h2>{{selectedPost.nombre}}</h2>
-  <div>{{selectedPost.contenido}}</div>
+  <h2>{{selectedNote.nombre}}</h2>
+  <div>{{selectedNote.contenido}}</div>
   <div id="share">
     <h3>{{i18n 'Share note'}}</h3>
-    {{#each selectedPost.share}}
+    {{#each selecteNote.share}}
       <p>{{autor}} shared</p>
       <p>
         {{contenido}}

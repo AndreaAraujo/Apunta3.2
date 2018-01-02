@@ -14,7 +14,7 @@ class UserRest extends BaseRest {
 		$this->userMapper = new UserMapper();
 	}
 
-	public function postUser($data) {
+	public function noteUser($data) {
 		$user = new User($data->login, $data->password, $data->email);
 		try {
 			$user->checkIsValidForRegister();
@@ -46,5 +46,5 @@ class UserRest extends BaseRest {
 $userRest = new UserRest();
 URIDispatcher::getInstance()
 ->map("GET",	"/user/$1", array($userRest,"login"))
-->map("POST", "/user", array($userRest,"postUser"));
+->map("POST", "/user", array($userRest,"noteUser"));
 ?>
