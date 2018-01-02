@@ -9,14 +9,15 @@ class PostViewComponent extends Fronty.ModelComponent {
 
     this.postsService = new PostsService();
 
-    this.addEventListener('click', '#savesharebutton', () => {
-      var selectedId = this.router.getRouteQueryParam('IdNota');
-      this.postsService.createShare(selectedId, {
-          content: $('#sharecontent').val()
-        })
+    this.addEventListener('click', '.share-button', () => {
+      var user = $('#user').val();
+      var selectedId = this.router.getRouteQueryParam('idNota');
+      this.postsService.sharePost(selectedId, user)
         .then(() => {
-          $('#sharecontent').val('');
-          this.loadPost(selectedId);
+          this.postsModel.set((model) => {
+            model.errors = []
+          });
+          this.router.goToPage('posts');
         })
         .fail((xhr, errorThrown, statusText) => {
           if (xhr.status == 400) {

@@ -24,8 +24,11 @@ class MainComponent extends Fronty.RouterComponent {
         component: new PostAddComponent(postsModel, userModel, this),
         title: 'Add Post'
       },
+<<<<<<< HEAD
 
       /*
+=======
+>>>>>>> 3cc79e4d8316b49d2da158312c913d11b75b2668
       'share-post': {
           component: new PostShareComponent(postsModel, userModel, this),
           title: 'Share Post'
@@ -33,7 +36,11 @@ class MainComponent extends Fronty.RouterComponent {
       'shared-post': {
           component: new PostSharedComponent(postsModel, userModel, this),
           title: 'Shared Post'
+<<<<<<< HEAD
       },*/
+=======
+      },
+>>>>>>> 3cc79e4d8316b49d2da158312c913d11b75b2668
       login: {
         component: new LoginComponent(userModel, this),
         title: 'Login'

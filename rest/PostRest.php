@@ -4,16 +4,11 @@ require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 
 require_once(__DIR__."/../model/Post.php");
-require_once(__DIR__."/../model/PostMapper.php");
-
-
-require_once(__DIR__."/BaseRest.php");
+require_once(__DIR__."/../model/PostMapper.php");require_once(__DIR__."/BaseRest.php");
 
 
 class PostRest extends BaseRest {
 	private $postMapper;
-
-
 
 	public function __construct() {
 		parent::__construct();
@@ -21,10 +16,9 @@ class PostRest extends BaseRest {
 		$this->postMapper = new PostMapper();
 
 	}
-
-
 	public function getPosts() {
-		$posts = $this->postMapper->findAll();
+		$currentUser = parent::authenticateUser();
+		$posts = $this->postMapper->findAll($currentUser->getLogin());
 
 		// json_encode Post objects.
 		// since Post objects have private fields, the PHP json_encode will not
@@ -33,10 +27,10 @@ class PostRest extends BaseRest {
 		$posts_array = array();
 		foreach($posts as $post) {
 			array_push($posts_array, array(
-				"IdNota" => $post->getIdNota(),
-				"nombre" => $post->getNombre(),
-				"contenido" => $post->getContenido(),
-				"autor" => $post->getAutor()->getLogin()
+			"IdNota" => $post->getIdNota(),
+			"nombre" => $post->getNombre(),
+			"contenido" => $post->getContenido(),
+			"autor" => $post->getAutor()->getLogin()
 			));
 		}
 
@@ -217,7 +211,8 @@ URIDispatcher::getInstance()
 ->map("GET",	"/post", array($postRest,"getPosts"))
 ->map("GET",	"/post/$1", array($postRest,"readPost"))
 ->map("POST", "/post", array($postRest,"createPost"))
-->map("POST", "/post/$1/share", array($postRest,"createShare"))
+->map("POST",  "/post/$1/share", array($postRest,"sharePost"))
 ->map("PUT",	"/post/$1", array($postRest,"updatePost"))
-->map("DELETE", "/post/$1", array($postRest,"deletePost"));
+->map("DELETE", "/post/$1", array($postRest,"deletePost"))
+->map("GET",	"/shared", array($postRest,"getPostShared"));
 ?>
