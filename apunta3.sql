@@ -3,7 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
+<<<<<<< HEAD
 -- Tiempo de generación: 10-12-2017 a las 22:49:38
+=======
+-- Tiempo de generación: 09-12-2017 a las 19:54:01
+>>>>>>> 3cc79e4d8316b49d2da158312c913d11b75b2668
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -41,12 +45,17 @@ INSERT INTO `nota` (`IdNota`, `nombre`, `contenido`, `autor`) VALUES
 (43, 'Entrenamiento', 'Abdominales: 3 series de 30 repeticiones********* Sentadillas: 5 series de 20 repeticionesliva virgen extra**********   Press banca: 4 series de 25 repeticiones', 'pepep'),
 (44, 'Cumpleaños', 'Fátima: 23/9  ,  Mario: 01/12  ', 'pepep'),
 (48, 'Reuniones', 'Jueves 02/11/2017 a las 10:00', 'pepep'),
+<<<<<<< HEAD
 (79, '//985', '////88', 'aaaaaa'),
 (118, 'lalalalla', 'lalalalalal', 'andrea'),
 (120, 'nota3', 'sgrtgrwtg', 'andrea'),
 (121, 'nota2', 's', 'andrea'),
 (123, 'nota1', 'nota1 andrea', 'andrea'),
 (124, 'nota maria', 'nota maria', 'maria');
+=======
+(77, '34r34r', '34r34r34r', 'andrea'),
+(79, '//985', '////88', 'aaaaaa');
+>>>>>>> 3cc79e4d8316b49d2da158312c913d11b75b2668
 
 -- --------------------------------------------------------
 
@@ -64,6 +73,10 @@ CREATE TABLE `notas_compartidas` (
 --
 
 INSERT INTO `notas_compartidas` (`nomUsu`, `idNota`) VALUES
+<<<<<<< HEAD
+=======
+('aaaaaa', 47),
+>>>>>>> 3cc79e4d8316b49d2da158312c913d11b75b2668
 ('andrea', 79),
 ('mario', 79),
 ('pepep', 79);
@@ -127,7 +140,11 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `nota`
 --
 ALTER TABLE `nota`
+<<<<<<< HEAD
   MODIFY `IdNota` bigint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+=======
+  MODIFY `IdNota` bigint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+>>>>>>> 3cc79e4d8316b49d2da158312c913d11b75b2668
 --
 -- Restricciones para tablas volcadas
 --

@@ -9,6 +9,7 @@ class NoteViewComponent extends Fronty.ModelComponent {
 
     this.notesService = new NotesService();
 
+<<<<<<< HEAD:frontend/js/component/noteviewcomponent.js
     this.addEventListener('click', '#savesharebutton', () => {
       var selectedId = this.router.getRouteQueryParam('IdNota');
       this.notesService.createShare(selectedId, {
@@ -17,6 +18,17 @@ class NoteViewComponent extends Fronty.ModelComponent {
         .then(() => {
           $('#sharecontent').val('');
           this.loadNote(selectedId);
+=======
+    this.addEventListener('click', '.share-button', () => {
+      var user = $('#user').val();
+      var selectedId = this.router.getRouteQueryParam('idNota');
+      this.postsService.sharePost(selectedId, user)
+        .then(() => {
+          this.postsModel.set((model) => {
+            model.errors = []
+          });
+          this.router.goToPage('posts');
+>>>>>>> b7e14dae8b5c10ba1f6d93e62d07639df402ed7b:frontend/js/component/postviewcomponent.js
         })
         .fail((xhr, errorThrown, statusText) => {
           if (xhr.status == 400) {

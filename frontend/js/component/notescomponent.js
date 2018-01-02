@@ -13,6 +13,7 @@ class NotesComponent extends Fronty.ModelComponent {
   }
 
   onStart() {
+<<<<<<< HEAD:frontend/js/component/notescomponent.js
     this.updateNotes();
   }
 
@@ -20,6 +21,16 @@ class NotesComponent extends Fronty.ModelComponent {
     this.notesService.findAllNotes().then((data) => {
 
       this.notesModel.setNotes(
+=======
+    if (this.userModel.isLogged) {
+      this.updatePosts();
+    }
+  }
+
+  updatePosts() {
+	  this.postsService.findAllPosts().then((data) => {
+		this.postsModel.setPosts(
+>>>>>>> b7e14dae8b5c10ba1f6d93e62d07639df402ed7b:frontend/js/component/postscomponent.js
         // create a Fronty.Model for each item retrieved from the backend
         data.map(
           (item) => new NoteModel(item.IdNota, item.nombre, item.contenido, item.autor)
@@ -27,9 +38,15 @@ class NotesComponent extends Fronty.ModelComponent {
     });
   }
 
+
   // Override
+<<<<<<< HEAD:frontend/js/component/notescomponent.js
   createChildModelComponent(className, element, id, modelItem) {
     return new NoteRowComponent(modelItem, this.userModel, this.router, this);
+=======
+  createChildModelComponent(className, element, idNota, modelItem) {
+    return new PostRowComponent(modelItem, this.userModel, this.router, this);
+>>>>>>> b7e14dae8b5c10ba1f6d93e62d07639df402ed7b:frontend/js/component/postscomponent.js
   }
 }
 

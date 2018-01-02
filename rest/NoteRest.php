@@ -3,17 +3,20 @@
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 
+<<<<<<< HEAD:rest/NoteRest.php
 require_once(__DIR__."/../model/Note.php");
 require_once(__DIR__."/../model/NoteMapper.php");
 
 
 require_once(__DIR__."/BaseRest.php");
+=======
+require_once(__DIR__."/../model/Post.php");
+require_once(__DIR__."/../model/PostMapper.php");require_once(__DIR__."/BaseRest.php");
+>>>>>>> b7e14dae8b5c10ba1f6d93e62d07639df402ed7b:rest/PostRest.php
 
 
 class NoteRest extends BaseRest {
 	private $noteMapper;
-
-
 
 	public function __construct() {
 		parent::__construct();
@@ -21,15 +24,19 @@ class NoteRest extends BaseRest {
 		$this->noteMapper = new NoteMapper();
 
 	}
-
-
 	public function getPosts() {
+<<<<<<< HEAD:rest/NoteRest.php
 		$notes = $this->noteMapper->findAll();
+=======
+		$currentUser = parent::authenticateUser();
+		$posts = $this->postMapper->findAll($currentUser->getLogin());
+>>>>>>> b7e14dae8b5c10ba1f6d93e62d07639df402ed7b:rest/PostRest.php
 
 		// json_encode Post objects.
 		// since Post objects have private fields, the PHP json_encode will not
 		// encode them, so we will create an intermediate array using getters and
 		// encode it finally
+<<<<<<< HEAD:rest/NoteRest.php
 		$notes_array = array();
 		foreach($notes as $note) {
 			array_push($notes_array, array(
@@ -37,6 +44,15 @@ class NoteRest extends BaseRest {
 				"nombre" => $note->getNombre(),
 				"contenido" => $note->getContenido(),
 				"autor" => $note->getAutor()->getLogin()
+=======
+		$posts_array = array();
+		foreach($posts as $post) {
+			array_push($posts_array, array(
+			"IdNota" => $post->getIdNota(),
+			"nombre" => $post->getNombre(),
+			"contenido" => $post->getContenido(),
+			"autor" => $post->getAutor()->getLogin()
+>>>>>>> b7e14dae8b5c10ba1f6d93e62d07639df402ed7b:rest/PostRest.php
 			));
 		}
 
@@ -214,9 +230,19 @@ URIDispatcher::getInstance()
 */
 
 URIDispatcher::getInstance()
+<<<<<<< HEAD:rest/NoteRest.php
 ->map("GET",	"/note", array($noteRest,"getNotes"))
 ->map("GET",	"/note/$1", array($noteRest,"readPost"))
 ->map("POST", "/note", array($noteRest,"createNote"))
 ->map("PUT",	"/note/$1", array($noteRest,"updateNote"))
 ->map("DELETE", "/note/$1", array($noteRest,"deleteNote"));
+=======
+->map("GET",	"/post", array($postRest,"getPosts"))
+->map("GET",	"/post/$1", array($postRest,"readPost"))
+->map("POST", "/post", array($postRest,"createPost"))
+->map("POST",  "/post/$1/share", array($postRest,"sharePost"))
+->map("PUT",	"/post/$1", array($postRest,"updatePost"))
+->map("DELETE", "/post/$1", array($postRest,"deletePost"))
+->map("GET",	"/shared", array($postRest,"getPostShared"));
+>>>>>>> b7e14dae8b5c10ba1f6d93e62d07639df402ed7b:rest/PostRest.php
 ?>
